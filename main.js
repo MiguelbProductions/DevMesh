@@ -17,8 +17,29 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/", function(req, res) {
-    res.render("index.html", {})
+    res.render("main/home.html", {})
 })
+
+app.get("/:page?", function(req, res) {
+    const page = req.params.page || "Home"
+
+    res.render(`main/${page}.html`, {}, (err, html) => {
+        if (err) res.redirect("/")
+        else res.send(html)
+    })
+})
+
+app.get('/auth/logout', (req, res) => {
+    req.session.destroy((err) => { res.redirect('/') })
+})
+
+app.get("/auth/sign", (req, res) => {
+    res.render(`auth/sign.html`, {}, (err, html) => {
+        if (err) res.redirect("/")
+        else res.send(html)
+    })
+})
+
 
 const PORT = 8001
 app.listen(PORT, () => {

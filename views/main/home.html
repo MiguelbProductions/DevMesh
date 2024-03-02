@@ -1,0 +1,351 @@
+<%- include('../partials/header.html') %>
+
+<script src="/public/js/home.js"></script>
+
+<main>
+    <div class="main-section">
+        <div class="container">
+            <div class="main-section-data">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+                        <div class="main-left-sidebar no-margin">
+                            <div class="user-data full-width">
+                                <div class="user-profile">
+                                    <div class="username-dt">
+                                        <div class="usr-pic">
+                                            <img src="/public/images/resources/user-pic.png" alt="Profile Picture">
+                                        </div>
+                                    </div>
+                                    <div class="user-specs">
+                                        <h3>USERNAME HERE</h3>
+                                        <span>WORK AREA</span>
+                                    </div>
+                                </div>
+                                <ul class="user-fw-status">
+                                    <li>
+                                        <h4>Following</h4>
+                                        <span>FOLLOWING VALUE</span>
+                                    </li>
+                                    <li>
+                                        <h4>Followers</h4>
+                                        <span>FOLLOWERS VALUE</span>
+                                    </li>
+                                    <li>
+                                        <a href="/profile">View Profile</a>
+                                    </li>
+                                </ul>
+                            </div><!--user-data end-->
+
+                            <div class="suggestions full-width">
+                                <div class="sd-title">
+                                    <h3>Suggestions</h3>
+                                    <i class="la la-ellipsis-v"></i>
+                                </div>
+                                <div class="suggestions-list">
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s1.png" alt="User Picture">
+                                        <div class="sgt-text">
+                                            <h4>USERNAME</h4>
+                                            <span>WORK AREA</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s1.png" alt="User Picture">
+                                        <div class="sgt-text">
+                                            <h4>USERNAME</h4>
+                                            <span>WORK AREA</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s1.png" alt="User Picture">
+                                        <div class="sgt-text">
+                                            <h4>USERNAME</h4>
+                                            <span>WORK AREA</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="view-more">
+                                        <a href="/suggestions">View More</a>
+                                    </div>
+                                </div>
+                            </div><!--suggestions end-->
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-8 no-pd">
+                        <div class="main-ws-sec">
+                            <div class="post-topbar">
+                                <div class="user-picy">
+                                    <img src="/public/images/resources/user-pic.png" alt="">
+                                </div>
+                                <div class="post-st">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-secondary btn-publish">
+                                                Publish
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#postQuestionModal">
+                                                Make a Question
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="post-project-fields post-topbar-border" id="postForm" style="padding: 0">
+                                    <hr>
+                                    <form>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="postbody-content" rows="4" style="resize: none;"></textarea>
+                                        </div>
+                                    </form>
+                                </div>  
+                                
+                                <div class="modal fade" id="postQuestionModal" tabindex="-1" role="dialog" aria-labelledby="postQuestionModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background-color: var(--primary); color: white;">
+                                                <h5 class="modal-title" id="postQuestionModalLabel">Post a Question</h5>
+                                            </div>
+                                            <div class="modal-body pt-4">
+                                                <form>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="title">Title</label>
+                                                            <small class="form-text text-muted d-block mb-2">Enter a concise and informative title for your question.</small>
+                                                            <input type="text" class="form-control" id="title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="body">Body</label>
+                                                            <small class="form-text text-muted d-block mb-2">Provide a detailed description of your question.</small>
+                                                            <textarea class="form-control" id="editor" rows="4" style="resize: none;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-1">
+                                                        <div class="form-group">
+                                                            <label for="tags">Tags</label>
+                                                            <small class="form-text text-muted d-block mb-2">Add relevant tags separated by commas (e.g., HTML, CSS).</small>
+                                                            <input type="text" class="form-control" id="tags">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary" onclick="console.log(tinymce.activeEditor.getContent('myTextarea'))">Post Question</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                        
+                        <div class="post-bar">
+                            <div class="post_topbar">
+                                <div class="usy-dt">
+                                    <img src="/public/images/resources/us-pic.png" alt="">
+                                    <div class="usy-name">
+                                        <h3>USER OF POST</h3>
+                                        <span><img src="/public/images/clock.png" alt="">3 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="ed-opts ml-2">
+                                    <a href="#" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                    <ul class="ed-options">
+                                        <li><a href="#">Edit</a></li>
+                                        <li><a href="#" style="color: red;">Delete</a></li>
+                                    </ul>
+                                </div>
+                                <ul class="bk-links">
+                                    <li><a href="#"><i class="la la-bookmark"></i></a></li>
+                                    <li><a href="#"><i class="la la-envelope"></i></a></li>
+                                </ul>
+
+                            </div>
+                            <div class="post_descp mt-4">
+                                <h3>Web Development with React</h3>
+                                <p class="mb-3">Learn to build modern and reactive web applications with React. This post covers the fundamentals of React, including components, state, and props, to get you started on developing your own web applications.</p>
+                                <ul class="skill-tags">
+                                    <li><a href="#">React</a></li>
+                                    <li><a href="#">JavaScript</a></li>
+                                    <li><a href="#">Web Development</a></li>
+                                    <li><a href="#">Frontend</a></li>
+                                    <li><a href="#">UI/UX</a></li>    
+                                </ul>
+                            </div>                            
+                            <div class="job-status-bar">
+                                <ul class="like-com">
+                                    <li>
+                                        <a href="#"><i class="fas fa-heart"></i> 25 Likes</a>
+                                    </li> 
+                                    <li>
+                                        <a href="#"><i class="fas fa-comment-alt"></i> Comment 15</a>
+                                    </li>
+                                </ul>
+                                <a href="#"><i class="fas fa-eye"></i>Views 50</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 pd-right-none no-pd">
+                        <div class="right-sidebar">
+                            <div class="widget widget-jobs">
+                                <div class="sd-title">
+                                    <h3>Top Jobs</h3>
+                                    <i class="la la-ellipsis-v"></i>
+                                </div>
+                                <div class="jobs-list">
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior Product Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior UI / UX Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Junior Seo Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior PHP Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior Developer Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--widget-jobs end-->
+
+                            <div class="widget widget-jobs">
+                                <div class="sd-title">
+                                    <h3>Most Viewed This Week</h3>
+                                    <i class="la la-ellipsis-v"></i>
+                                </div>
+                                <div class="jobs-list">
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior Product Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Senior UI / UX Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                        <div class="job-details">
+                                            <h3>Junior Seo Designer</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                                        </div>
+                                        <div class="hr-rate">
+                                            <span>$25/hr</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--widget-jobs end-->
+                            
+                            <div class="widget suggestions full-width">
+                                <div class="sd-title">
+                                    <h3>Most Viewed People</h3>
+                                    <i class="la la-ellipsis-v"></i>
+                                </div>
+                                <div class="suggestions-list">
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s1.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>Jessica William</h4>
+                                            <span>Graphic Designer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s2.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>John Doe</h4>
+                                            <span>PHP Developer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s3.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>Poonam</h4>
+                                            <span>Wordpress Developer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s4.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>Bill Gates</h4>
+                                            <span>C &amp; C++ Developer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s5.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>Jessica William</h4>
+                                            <span>Graphic Designer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="suggestion-usd">
+                                        <img src="/public/images/resources/s6.png" alt="">
+                                        <div class="sgt-text">
+                                            <h4>John Doe</h4>
+                                            <span>PHP Developer</span>
+                                        </div>
+                                        <span><i class="la la-plus"></i></span>
+                                    </div>
+                                    <div class="view-more">
+                                        <a href="#">View More</a>
+                                    </div>
+                                </div>
+                            </div> <!--suggestions-list end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/footer.html') %>
