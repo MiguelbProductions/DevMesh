@@ -1,22 +1,29 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>WorkWise Html Template</title>
+	<title>DevMesh</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+    <link rel="shortcut icon" href="/public/images/DevMesh_Icon.ico" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="/public/css/animate.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/line-awesome.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/line-awesome-font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/public/vendor/fontawesome-free/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="/public/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/jquery.mCustomScrollbar.min.css">
 	<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick.css">
 	<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick-theme.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
+
+	<script type="text/javascript" src="/public/externalpackages/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/externalpackages/jquery.mCustomScrollbar.js"></script>
 </head>
 <body class="sign-in">
 	<div class="wrapper">		
@@ -28,7 +35,10 @@
 							<div class="cmp-info">
 								<div class="cm-logo">
 									<img src="/public/img/icons/DevMesh_LogoName.png" alt="">
-									<p>Workwise,  is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
+									<p>
+										Welcome to our collaborative network, a place where developers unite to share, edit, and suggest code, and dive into unique freelancing opportunities. Join us to access a vibrant community and influence the future of software development. <br>
+										Let's innovate, learn, and grow together. Sign up now and collaborate with technology's brightest. Embark on this innovative journey with us!
+									</p>
 								</div>
 								<img src="/public/img/default/login-img.png" alt="">			
 							</div>
@@ -36,26 +46,33 @@
 						<div class="col-lg-6">
 							<div class="login-sec">
 								<ul class="sign-control">
-									<li data-tab="tab-1" class="current"><a href="#" title="">Sign in</a></li>				
-									<li data-tab="tab-2"><a href="#" title="">Sign up</a></li>				
+									<li data-tab="tab-1" class="current"><a href="#">Login</a></li>				
+									<li data-tab="tab-2"><a href="#">Register</a></li>				
 								</ul>			
 								<div class="sign_in_sec current" id="tab-1">
 									
-									<h3>Sign in</h3>
-									<form>
+									<h3>Login</h3>
+									<form method="post">
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="text" name="username" placeholder="Username">
+													<input type="text" name="username_or_email" placeholder="Username or Email">
 													<i class="la la-user"></i>
-												</div><!--sn-field end-->
+												</div>
 											</div>
+											<% if (typeof errors !== 'undefined' && errors.username_or_email) { %>
+												<p class="error"><%= errors.username_or_email %></p>
+											  <% } %>
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="password" name="password" placeholder="Password">
+													<input type="password" name="passwordvalue" placeholder="Password">
 													<i class="la la-lock"></i>
 												</div>
 											</div>
+											<% if (typeof errors !== 'undefined' && errors.passwordvalue) { %>
+												<p class="error"><%= errors.passwordvalue %></p>
+											<% } %>
+											<!--
 											<div class="col-lg-12 no-pdd">
 												<div class="checky-sec">
 													<div class="fgt-sec">
@@ -64,69 +81,99 @@
 															<span></span>
 														</label>
 														<small>Remember me</small>
-													</div><!--fgt-sec end-->
-													<a href="#" title="">Forgot Password?</a>
+													</div>
+													<a href="#">Forgot Password?</a>
 												</div>
 											</div>
+											-->
 											<div class="col-lg-12 no-pdd">
-												<button type="submit" value="submit">Sign in</button>
+												<button type="submit" value="submit" class="no-pdd mt-2" name="login_user">Login</button>
 											</div>
 										</div>
 									</form>
+									<!--
 									<div class="login-resources">
 										<h4>Login Via Social Account</h4>
 										<ul>
-											<li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Login Via Facebook</a></li>
-											<li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Login Via Twitter</a></li>
+											<li><a href="#" class="fb"><i class="fa fa-facebook"></i>Login Via Facebook</a></li>
+											<li><a href="#" class="tw"><i class="fa fa-twitter"></i>Login Via Twitter</a></li>
+											<li><a href="#" class="gl"><i class="fa fa-google"></i>Login Via Google</a></li>
 										</ul>
-									</div><!--login-resources end-->
-								</div><!--sign_in_sec end-->
+									</div>
+									-->
+								</div>
+
 								<div class="sign_in_sec" id="tab-2">
 									<div class="signup-tab">
-										<i class="fa fa-long-arrow-left"></i>
-										<h2>johndoe@example.com</h2>
 										<ul>
-											<li data-tab="tab-3" class="current"><a href="#" title="">User</a></li>
-											<li data-tab="tab-4"><a href="#" title="">Company</a></li>
+											<li data-tab="tab-3" class="current"><a href="#">User</a></li>
+											<li data-tab="tab-4"><a href="#">Company</a></li>
 										</ul>
-									</div><!--signup-tab end-->	
+									</div>
 									<div class="dff-tab current" id="tab-3">
-										<form>
+										<form method="post">
 											<div class="row">
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="name" placeholder="Full Name">
+														<input type="text" name="email" placeholder="Email">
+														<i class="la la-envelope"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" name="name" placeholder="Name">
 														<i class="la la-user"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="country" placeholder="Country">
-														<i class="la la-globe"></i>
+														<input type="text" name="username" placeholder="Username">
+														<i class="fa fa-signature"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<select>
-															<option>Category</option>
-															<option>Category 1</option>
-															<option>Category 2</option>
-															<option>Category 3</option>
-															<option>Category 4</option>
+														<input type="text" name="location" placeholder="Location">
+														<i class="fa fa-location-dot"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<select name="workarea">
+															<option>Work Area</option>
+															<option>Software Development</option>
+															<option>Web Development</option>
+															<option>Mobile Application Development</option>
+															<option>Data Science & Analytics</option>
+															<option>Artificial Intelligence</option>
+															<option>Machine Learning</option>
+															<option>Cloud Computing</option>
+															<option>Cybersecurity</option>
+															<option>Blockchain</option>
+															<option>Internet of Things (IoT)</option>
+															<option>UI/UX Design</option>
+															<option>Game Development</option>
+															<option>DevOps & System Administration</option>
+															<option>Network Engineering</option>
+															<option>Technical Support</option>
+															<option>Quality Assurance</option>
+															<option>Project Management</option>
+															<option>IT Consulting</option>
+															<option>Technical Writing</option>
 														</select>
-														<i class="la la-dropbox"></i>
+														<i class="fa fa-briefcase"></i>
 														<span><i class="fa fa-ellipsis-h"></i></span>
 													</div>
-												</div>
+												</div>												
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="password" name="password" placeholder="Password">
+														<input type="password" name="password_field" placeholder="Password">
 														<i class="la la-lock"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="password" name="repeat-password" placeholder="Repeat Password">
+														<input type="password" name="confirm_password" placeholder="Repeat Password">
 														<i class="la la-lock"></i>
 													</div>
 												</div>
@@ -137,18 +184,18 @@
 															<label for="c2">
 																<span></span>
 															</label>
-															<small>Yes, I understand and agree to the workwise Terms & Conditions.</small>
-														</div><!--fgt-sec end-->
+															<small>Yes, I understand and agree to the DevMesh Terms & Conditions.</small>
+														</div>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
-													<button type="submit" value="submit">Get Started</button>
+													<button type="submit" value="submit" name="register_user">Get Started</button>
 												</div>
 											</div>
 										</form>
-									</div><!--dff-tab end-->
+									</div>
 									<div class="dff-tab" id="tab-4">
-										<form>
+										<form method="post">
 											<div class="row">
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
@@ -181,46 +228,43 @@
 															<label for="c3">
 																<span></span>
 															</label>
-															<small>Yes, I understand and agree to the workwise Terms & Conditions.</small>
-														</div><!--fgt-sec end-->
+															<small>Yes, I understand and agree to the DevMesh Terms & Conditions.</small>
+														</div>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
-													<button type="submit" value="submit">Get Started</button>
+													<button type="submit" value="submit" name="register-company">Get Started</button>
 												</div>
 											</div>
 										</form>
-									</div><!--dff-tab end-->
+									</div>
 								</div>		
-							</div><!--login-sec end-->
+							</div>
 						</div>
 					</div>		
-				</div><!--signin-pop end-->
-			</div><!--signin-popup end-->
+				</div>
+			</div>
+			<!--
 			<div class="footy-sec">
 				<div class="container">
 					<ul>
-						<li><a href="help-center.html" title="">Help Center</a></li>
-						<li><a href="about.html" title="">About</a></li>
-						<li><a href="#" title="">Privacy Policy</a></li>
-						<li><a href="#" title="">Community Guidelines</a></li>
-						<li><a href="#" title="">Cookies Policy</a></li>
-						<li><a href="#" title="">Career</a></li>
-						<li><a href="forum.html" title="">Forum</a></li>
-						<li><a href="#" title="">Language</a></li>
-						<li><a href="#" title="">Copyright Policy</a></li>
+						<li><a href="help-center.html">Help Center</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Community Guidelines</a></li>
+						<li><a href="#">Cookies Policy</a></li>
+						<li><a href="#">Career</a></li>
+						<li><a href="forum.html">Forum</a></li>
+						<li><a href="#">Language</a></li>
+						<li><a href="#">Copyright Policy</a></li>
 					</ul>
 					<p><img src="/public/images/copy-icon.png" alt="">Copyright 2019</p>
 				</div>
-			</div><!--footy-sec end-->
-		</div><!--sign-in-page end-->
+			</div>
+			-->
+		</div>
+	</div>
 
-
-	</div><!--theme-layout end-->
-
-
-
-	<script type="text/javascript" src="/public/externalpackages/jquery.min.js"></script>
 	<script type="text/javascript" src="/public/externalpackages/popper.js"></script>
 	<script type="text/javascript" src="/public/externalpackages/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/public/lib/slick/slick.min.js"></script>

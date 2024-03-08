@@ -2421,7 +2421,6 @@ select {
 .signup-tab {
 	float: left;
 	width: 100%;
-	border: 1px solid #e5e5e5;
 	text-align: center;
 	padding: 15px 0;
 	margin-bottom: 20px;
@@ -2509,6 +2508,9 @@ select {
 .login-resources ul li a i {
 	margin-right: 15px;
 }
+.gl {
+	background-color: #e02424;
+}
 .fb {
 	background-color: #3b5998;
 }
@@ -2588,6 +2590,15 @@ footer {
 
 .cover-sec img {
 	width: 100%;
+}
+.cover-sec.thumbbg {
+	max-height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.cover-sec.thumbbg img {
+	object-fit: cover;
 }
 .cover-sec > a {
 	display: inline-block;
@@ -2670,6 +2681,8 @@ footer {
 	border-radius: 100px;
 	float: none;
 	border: 5px solid #fff;
+	aspect-ratio: 1/1;
+    object-fit: cover;
 }
 .user_pro_status {
 	float: left;
@@ -2747,15 +2760,18 @@ footer {
 	border-bottom: 1px solid #e5e5e5;
 }
 .social_links li a {
-	float: left;
-	width: 100%;
-	color: #51a5fb;
-	font-size: 14px;
+    float: none; /* Override the float */
+    width: auto; /* Allow the width to fit the content */
+    max-width: 250px; /* Prevent the link from being too wide */
+    display: inline-block; /* Ensure the link behaves like an inline block */
+    color: #51a5fb;
+    font-size: 14px;
     font-weight: 400;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
+
 .social_links li a i {
 	padding-right: 5px;
 	font-size: 20px;
@@ -2835,8 +2851,11 @@ footer {
 	display: inline-block;
 }
 .star-descp ul li i {
-	color: #b7ce1f;
 	font-size: 16px;
+	color: #434343;
+}
+.star-descp ul li .gold, .gold {
+	color: #b7ce1f;
 }
 .tab-feed {
 	float: left;
@@ -3019,9 +3038,9 @@ footer {
 	margin-bottom: 10px;
 	padding: 0 2px;
 }
-.user-profile-ov ul li a {
+.user-profile-ov ul li {
 	display: inline-block;
-	color: #b2b2b2;
+	color: #929292;
 	font-size: 14px;
 	font-weight: 600;
 	background-color: #e5e5e5;
@@ -5755,22 +5774,23 @@ a:hover {
 }
 
 .add-pic-box [type="file"] + label {
-	background: #fff;
-	border: 2px solid var(--primary);
-	border-radius: 3px;
-	color: var(--primary);
-	cursor: pointer;
-	display: inline-block;
-	font-size:15px;
-	font-weight: 600;
-	outline: none;
-	padding: 12px 20px;
-	position: relative;
-	transition: all 0.3s;
-	vertical-align: middle;
-	margin: 0;
-	float: right;
-	text-transform: uppercase;
+    background: #fff;
+    border-radius: 3px;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    padding: 12px 14px;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+    margin: 0;
+    float: right;
+    text-transform: uppercase;
+    border-radius: 20px;
 }
 .add-pic-box [type="file"] + label:hover {
 	background: var(--primary);
@@ -6098,6 +6118,9 @@ a:hover {
     margin-bottom: 1rem;
     padding-top: 0px;
 }
+.form-group label {
+	margin-bottom: 8px;
+}
 .privacy i{
 	float: right;
 	color: var(--primary);
@@ -6375,9 +6398,13 @@ a:hover {
 .modal-header{
 	background-color: var(--primary);
 	display: block!important;
+	color: white;
 }
 .modal-body{
-	padding: 0;
+	padding: 1.5em 1.5em;
+}
+.modal-body textarea {
+	resize: none;
 }
 .notice{
 	background-color: #ddf3ff;

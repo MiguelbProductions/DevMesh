@@ -147,19 +147,6 @@ $(window).on("load", function() {
         return false;
     });
 
-    //  ============= CREATE PORTFOLIO FUNCTION =========
-
-    $(".portfolio-btn > a").on("click", function(){
-        $("#create-portfolio").addClass("open");
-        $(".wrapper").addClass("overlay");
-        return false;
-    });
-    $(".close-box").on("click", function(){
-        $("#create-portfolio").removeClass("open");
-        $(".wrapper").removeClass("overlay");
-        return false;
-    });
-
     //  ============= EMPLOYEE EDIT FUNCTION =========
 
     $(".emp-open").on("click", function(){

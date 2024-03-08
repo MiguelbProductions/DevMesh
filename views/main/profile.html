@@ -1,0 +1,1291 @@
+<%- include('../partials/header.html') %>
+
+<section class="cover-sec thumbbg">
+	<img src="<%= user.ThumbImage %>">
+	<% if (isUser) { %>
+		<div class="add-pic-box">
+			<div class="container">
+				<div class="row no-gutters">
+					<div class="col-lg-12 col-sm-12" id="profilethumbbox">					
+						<input type="file" id="profileThumbImage" name="profileThumbImage" accept="image/*">
+						<label for="profileThumbImage"><i class="fa-solid fa-pen"></i></label>				
+					</div>
+				</div>
+			</div>
+		</div>
+	<% } %>
+</section>
+
+
+<main>
+	<div class="main-section">
+		<div class="container">
+			<div class="main-section-data">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="main-left-sidebar">
+							<div class="user_profile">
+								<div class="user-pro-img">
+									<img src="<%= user.Image %>" alt="">
+									<% if (isUser) { %>
+										<div class="add-dp" id="OpenImgUpload">
+											<input type="file" id="profileImage" name="profileImage" accept="image/*">
+											<label for="profileImage"><i class="fas fa-camera"></i></label>												
+										</div>
+									<% } %>
+								</div>
+								<div class="user_pro_status">
+									<ul class="flw-status">
+										<li>
+											<span>Following</span>
+											<b><%= user.Following.length %></b>
+										</li>
+										<li>
+											<span>Followers</span>
+											<b><%= user.Followers.length %></b>
+										</li>
+									</ul>
+								</div>
+								<ul class="social_links list-unstyled">
+									<% ["WebPage", "Facebook", "Twitter", "Pinterest", "Instagram", "Youtube"].forEach(function(social, index) { %>
+										<% if (user.Social[social]) { %>
+											<li>
+												<i class="<%= (social != 'WebPage') ? "fa fa-" + social.toLowerCase() : 'fa-regular fa-globe' %> mr-2"></i> 
+
+												<a href="<%= user.Social[social] %>" target="_blank" class="text-truncate" style="max-width: 80%;"><%= user.Social[social] %></a>
+										<% } else if (isUser) { %>
+											<li>
+												<i class="<%= (social != 'WebPage') ? "fa fa-" + social.toLowerCase() : 'fa-regular fa-globe' %> mr-2"></i> 
+
+												Add my <%= social %>
+												
+												<div class="modal fade" id="editSocialModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="editSocialModalLabel<%= index %>" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="editSocialModalLabel<%= index %>" style="color: white;">Edit <%= social %></h5>
+															</div>
+															<div class="modal-body">
+																<input type="text" class="form-control social-input" placeholder="Add my <%= social %>" data-social="<%= social %>" value="<%= user.Social[social] ? user.Social[social] : '' %>">
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary update-social" data-social="<%= social %>" data-dismiss="modal">Save changes</button>
+															</div>
+														</div>
+													</div>
+												</div>
+										<% } %>
+
+										<% if (isUser) { %>
+											<button type="button" class="btn btn-outline-primary btn-sm ms-2" data-toggle="modal" data-target="#editSocialModal<%= index %>" style="all: unset">
+												<i class="fa-solid fa-pen-to-square ml-2"></i>
+											</button>
+										<% } %>
+										</li>
+									<% }); %>
+								</ul>														
+							</div>
+							<div class="suggestions full-width">
+								<div class="sd-title">
+									<h3>People Viewed Profile</h3>
+									<i class="la la-ellipsis-v"></i>
+								</div>
+								<div class="suggestions-list">
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s1.png" alt="">
+										<div class="sgt-text">
+											<h4>Jessica William</h4>
+											<span>Graphic Designer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s2.png" alt="">
+										<div class="sgt-text">
+											<h4>John Doe</h4>
+											<span>PHP Developer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s3.png" alt="">
+										<div class="sgt-text">
+											<h4>Poonam</h4>
+											<span>Wordpress Developer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s4.png" alt="">
+										<div class="sgt-text">
+											<h4>Bill Gates</h4>
+											<span>C & C++ Developer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s5.png" alt="">
+										<div class="sgt-text">
+											<h4>Jessica William</h4>
+											<span>Graphic Designer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="suggestion-usd">
+										<img src="/public/images/resources/s6.png" alt="">
+										<div class="sgt-text">
+											<h4>John Doe</h4>
+											<span>PHP Developer</span>
+										</div>
+										<span><i class="la la-plus"></i></span>
+									</div>
+									<div class="view-more">
+										<a href="#" title="">View More</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="main-ws-sec">
+							<div class="user-tab-sec rewivew">
+								<h3><%= user.Name %></h3>
+								<div class="star-descp">
+									<span><%= user.WorkArea %></span>
+									<!--
+									<ul>
+										<li><i class="fa fa-star"></i></li>
+										<li><i class="fa fa-star"></i></li>
+										<li><i class="fa fa-star"></i></li>
+										<li><i class="fa fa-star"></i></li>
+										<li><i class="fa fa-star-half-o"></i></li>
+									</ul>
+									<a href="#" title="">Status</a>
+									-->
+								</div>
+									<div class="tab-feed st2 settingjb">
+									<ul>
+										<li data-tab="feed-dd" class="active">
+											<a href="#" title="">
+												<img src="/public/images/ic1.png" alt="">
+												<span>Feed</span>
+											</a>
+										</li>
+										<li data-tab="info-dd">
+											<a href="#" title="">
+												<img src="/public/images/ic2.png" alt="">
+												<span>Info</span>
+											</a>
+										</li>
+										<li data-tab="saved-jobs">
+											<a href="#" title="">
+												<img src="/public/images/ic4.png" alt="">
+												<span>Jobs</span>
+											</a>
+										</li>
+										<li data-tab="portfolio-dd">
+											<a href="#" title="">
+												<img src="/public/images/ic3.png" alt="">
+												<span>Portfolio</span>
+											</a>
+										</li>
+										<li data-tab="rewivewdata">
+											<a href="#" title="">
+												<img src="/public/images/review.png" alt="">
+												<span>Reviews</span>
+											</a>
+										</li>
+										<!--
+										<li data-tab="payment-dd">
+											<a href="#" title="">
+												<img src="/public/images/ic6.png" alt="">
+												<span>Payment</span>
+											</a>
+										</li>
+										-->
+									</ul>
+								</div>
+							</div>
+
+							<div class="product-feed-tab" id="saved-jobs">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" id="mange-tab" data-toggle="tab" href="#mange" role="tab" aria-controls="home" aria-selected="true">Manage Jobs</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="saved-tab" data-toggle="tab" href="#saved" role="tab" aria-controls="profile" aria-selected="false">Saved Jobs</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="contact-tab" data-toggle="tab" href="#applied" role="tab" aria-controls="applied" aria-selected="false">Applied Jobs</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="cadidates-tab" data-toggle="tab" href="#cadidates" role="tab" aria-controls="contact" aria-selected="false">Applied cadidates</a>
+									</li>
+									</ul>
+									<div class="tab-content" id="myTabContent">
+									<div class="tab-pane fade show active" id="mange" role="tabpanel" aria-labelledby="mange-tab">
+										<div class="posts-bar">
+											<div class="post-bar bgclr">
+												<div class="wordpressdevlp">
+													<h2>Senior Wordpress Developer</h2>
+													
+													<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+												</div>
+												<br>
+												<div class="row no-gutters">
+													<div class="col-md-6 col-sm-12">
+														<div class="cadidatesbtn">
+															<button type="button" class="btn btn-primary">
+																<span class="badge badge-light">3</span>Candidates
+															</button>
+															<a href="#">
+																<i class="far fa-edit"></i>
+															</a>
+															<a href="#">
+																<i class="far fa-trash-alt"></i>
+															</a>
+														</div>
+													</div>
+													<div class="col-md-6 col-sm-12">
+														<ul class="bk-links bklink">
+															<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+															<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="posts-bar">
+											<div class="post-bar bgclr">
+												<div class="wordpressdevlp">
+													<h2>Senior Php Developer</h2>
+													
+													<p><i class="la la-clock-o"></i> Posted on 29 August 2018</p>
+												</div>
+												<br>
+												<div class="row no-gutters">
+													<div class="col-md-6 col-sm-12">
+														<div class="cadidatesbtn">
+															<button type="button" class="btn btn-primary">
+																<span class="badge badge-light">3</span>Candidates
+															</button>
+															<a href="#">
+																<i class="far fa-edit"></i>
+															</a>
+															<a href="#">
+																<i class="far fa-trash-alt"></i>
+															</a>
+														</div>
+													</div>
+													<div class="col-md-6 col-sm-12">
+														<ul class="bk-links bklink">
+															<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+															<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="posts-bar">
+											<div class="post-bar bgclr">
+												<div class="wordpressdevlp">
+													<h2>Senior UI UX Designer</h2>
+													
+													<div class="row no-gutters">
+														<div class="col-md-6 col-sm-12">
+															<p class="posttext"><i class="la la-clock-o"></i>Posted on 5 June 2018</p>
+														</div>
+														<div class="col-md-6 col-sm-12">
+															<p><i class="la la-clock-o"></i>Expiried on 5 October 2018</p>
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row no-gutters">
+													<div class="col-md-6 col-sm-12">
+														<div class="cadidatesbtn">
+															<button type="button" class="btn btn-primary">
+																<span class="badge badge-light">3</span>Candidates
+															</button>																	
+															<a href="#">
+																<i class="far fa-trash-alt"></i>
+															</a>
+														</div>
+													</div>
+													<div class="col-md-6 col-sm-12">
+														<ul class="bk-links bklink">
+															<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+															<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>Senior Wordpress Developer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Unsaved</a>
+													<a class="clrbtn" href="#">Message</a>
+												</div>
+											</ul>
+										</div>
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>Senior PHP Developer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Unsaved</a>
+													<a class="clrbtn" href="#">Message</a>
+												</div>
+											</ul>
+										</div>
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>UI UX Designer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Unsaved</a>
+													<a class="clrbtn" href="#">Message</a>
+												</div>
+											</ul>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="applied" role="tabpanel" aria-labelledby="applied-tab">
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>Senior Wordpress Developer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Applied</a>
+													<a class="clrbtn" href="#">Message</a>
+													<a href="#">
+														<i class="far fa-trash-alt"></i>
+													</a>
+												</div>
+											</ul>
+										</div>
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>Senior PHP Developer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Applied</a>
+													<a class="clrbtn" href="#">Message</a>
+													<a href="#">
+														<i class="far fa-trash-alt"></i>
+													</a>
+												</div>
+											</ul>
+										</div>
+										<div class="post-bar">
+											<div class="p-all saved-post">
+												<div class="usy-dt">
+													<div class="wordpressdevlp">
+														<h2>UI UX Designer</h2>
+														
+														<p><i class="la la-clock-o"></i>Posted on 30 August 2018</p>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<ul class="savedjob-info saved-info">
+												<li>
+													<h3>Applicants</h3>
+													<p>10</p>
+												</li>
+												<li>
+													<h3>Job Type</h3>
+													<p>Full Time</p>
+												</li>
+												<li>
+													<h3>Salary</h3>
+													<p>$600 - Mannual</p>
+												</li>
+												<li>
+													<h3>Posted : 5 Days Ago</h3>
+													<p>Open</p>
+												</li>
+												<div class="devepbtn saved-btn">
+													<a class="clrbtn" href="#">Applied</a>
+													<a class="clrbtn" href="#">Message</a>
+													<a href="#">
+														<i class="far fa-trash-alt"></i>
+													</a>
+												</div>
+											</ul>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="cadidates" role="tabpanel" aria-labelledby="cadidates-tab">
+										<div class="post-bar">
+											<div class="post_topbar applied-post">
+												<div class="usy-dt">
+													<img src="/public/img/profile/resources/us-pic.png" alt="">
+													<div class="usy-name">
+														<h3>John Doe</h3>
+														<div class="epi-sec epi2">
+															<ul class="descp descptab bklink">
+																<li><img src="/public/images/icon8.png" alt=""><span>Epic Coder</span></li>
+																<li><img src="/public/images/icon9.png" alt=""><span>India</span></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Accept</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+												<div class="job_descp noborder">
+													<div class="star-descp review profilecnd">
+														<ul class="bklik">
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star-half-o"></i></li>
+															<a href="#" title="">5.0 of 5 Reviews</a>
+														</ul>
+													</div>
+													<div class="devepbtn appliedinfo noreply">
+														<a class="clrbtn" href="#">Accept</a>
+														<a class="clrbtn" href="#">View Profile</a>
+														<a class="clrbtn" href="#">Message</a>
+														<a href="#">
+															<i class="far fa-trash-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="post-bar">
+											<div class="post_topbar  applied-post">
+												<div class="usy-dt">
+													<img src="/public/img/profile/resources/us-pic.png" alt="">
+													<div class="usy-name">
+														<h3>John Doe</h3>
+														<div class="epi-sec epi2">
+															<ul class="descp descptab bklink">
+																<li><img src="/public/images/icon8.png" alt=""><span>Epic Coder</span></li>
+																<li><img src="/public/images/icon9.png" alt=""><span>India</span></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Accept</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+												<div class="job_descp noborder">
+													<div class="star-descp review profilecnd">
+														<ul class="bklik">
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star-half-o"></i></li>
+															<a href="#" title="">5.0 of 5 Reviews</a>
+														</ul>
+													</div>
+													<div class="devepbtn appliedinfo noreply">
+														<a class="clrbtn" href="#">Accept</a>
+														<a class="clrbtn" href="#">View Profile</a>
+														<a class="clrbtn" href="#">Message</a>
+														<a href="#">
+															<i class="far fa-trash-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="post-bar">
+											<div class="post_topbar applied-post">
+												<div class="usy-dt">
+													<img src="/public/img/profile/resources/us-pic.png" alt="">
+													<div class="usy-name">
+														<h3>John Doe</h3>
+														<div class="epi-sec epi2">
+															<ul class="descp descptab bklink">
+																<li><img src="/public/images/icon8.png" alt=""><span>Epic Coder</span></li>
+																<li><img src="/public/images/icon9.png" alt=""><span>India</span></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Accept</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+												<div class="job_descp noborder">
+													<div class="star-descp review profilecnd">
+														<ul class="bklik">
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star"></i></li>
+															<li><i class="fa fa-star-half-o"></i></li>
+															<a href="#" title="">5.0 of 5 Reviews</a>
+														</ul>
+													</div>
+													<div class="devepbtn appliedinfo noreply">
+														<a class="clrbtn" href="#">Accept</a>
+														<a class="clrbtn" href="#">View Profile</a>
+														<a class="clrbtn" href="#">Message</a>
+														<a href="#">
+															<i class="far fa-trash-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>	
+									</div>
+							</div>
+							<div class="product-feed-tab current" id="feed-dd">
+								<div class="posts-section">
+									<% if (posts && posts.length > 0) { %>
+										<% posts.forEach(function(post) { %>
+											<div class="post-bar">
+												<div class="post_topbar">
+													<div class="usy-dt">
+														<img src="/public/img/profile/resources/us-pic.png" alt="">
+														<div class="usy-name">
+															<h3><%= post.author %></h3>
+															<span><img src="/public/images/clock.png" alt=""><%= new Date(post.createdAt).toLocaleString() %></span>
+														</div>
+													</div>
+													<div class="ed-opts ml-2">
+														<a href="#" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="#">Edit</a></li>
+															<li><a href="#" style="color: red;">Delete</a></li>
+														</ul>
+													</div>
+													<ul class="bk-links">
+														<li><a href="#"><i class="la la-bookmark"></i></a></li>
+														<li><a href="#"><i class="la la-envelope"></i></a></li>
+													</ul>
+												</div>
+												<div class="post_descp mt-4">
+													<h3><%= post.title %></h3>
+													<p class="mb-3"><%= post.content %></p>
+													<ul class="skill-tags">
+														<% post.tags.forEach(function(tag) { %>
+															<li><a href="#"><%= tag %></a></li>
+														<% }); %>
+													</ul>
+												</div>
+												<div class="job-status-bar">
+													<ul class="like-com">
+														<li>
+															<a href="#"><i class="fas fa-heart"></i> <%= post.likes.length %> Likes</a>
+														</li>
+														<li>
+															<a href="#"><i class="fas fa-comment-alt"></i> Comment <%= post.comments.length %></a>
+														</li>
+													</ul>
+													<a href="#"><i class="fas fa-eye"></i>Views <%= post.views %></a>
+												</div>
+											</div>
+										<% }); %>
+									<% } else { %>
+										<div class="post-bar">
+											<p>No posts available.</p>
+										</div>
+									<% } %>
+									<!--
+									<div class="process-comm">
+										<div class="spinner">
+											<div class="bounce1"></div>
+											<div class="bounce2"></div>
+											<div class="bounce3"></div>
+										</div>
+									</div>
+									-->
+								</div><!--posts-section end-->
+							</div><!--product-feed-tab end-->
+							<div class="product-feed-tab" id="info-dd">
+								<div class="user-profile-ov">
+									<h3>
+										<a href="#" title="" class="overview-open">About me</a> 
+										<% if (isUser) { %>  <a href="#" title="" class="overview-open"><i class="fa fa-pencil" id="editAboutIcon"></i></a> <% } %>
+									</h3>
+									<p>
+										<%= (user.Info.About == "" || user.Info.About == " ") ? "We still don't know anything about " + user.Name : user.Info.About %>
+									</p>
+								</div><!--user-profile-ov end-->
+								<div class="user-profile-ov st2">
+									<h3>Experience <% if (isUser) { %><i class="fa fa-plus-square" id="addExperienceIcon"></i> <% } %></h3>
+									<% if (user.Info.Experience.length > 0) { %>
+										<% user.Info.Experience.forEach(function(exp, index) { %>
+											<h4>
+												<%= exp.role %> | <%= exp.company %>
+												<% if (isUser) { %>
+													<i class="fa fa-pencil edit-experienceitem" data-toggle="modal" data-target="#editExperienceModal<%= index %>"></i>
+													<i class="fa fa-trash delete-experienceitem" data-index="<%= index %>"></i>
+												<% } %>
+											</h4>
+											<span><%= exp.startYear %> - <%= exp.endYear %></span>
+											<p><%= exp.description %></p>
+
+											<% if (isUser) { %>
+												<div class="modal fade" id="editExperienceModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="editExperienceModalLabel<%= index %>" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="editExperienceModalLabel<%= index %>">Edit Experience</h5>
+															</div>
+															<div class="modal-body">
+																<input type="text" class="form-control mb-2 exp-role" value="<%= exp.role %>" placeholder="Role">
+																<input type="text" class="form-control mb-2 exp-company" value="<%= exp.company %>" placeholder="Company">
+																<input type="number" class="form-control mb-2 exp-start-year" value="<%= exp.startYear %>" placeholder="Start Year">
+																<input type="number" class="form-control mb-2 exp-end-year" value="<%= exp.endYear %>" placeholder="End Year">
+																<textarea class="form-control exp-description" rows="3" placeholder="Description"><%= exp.description %></textarea>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary save-exp-changes" data-index="<%= index %>">Save changes</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											<% } %>
+										<% }); %>
+									<% } else { %>
+										<p>No experience information provided.</p>
+									<% } %>
+								</div>
+
+								<div class="user-profile-ov st2">
+									<h3>Education <% if (isUser) { %><i class="fa fa-plus-square" id="addEducationIcon"></i><% } %></h3>
+									<% if (user.Info.Education.length > 0) { %>
+										<% user.Info.Education.forEach(function(edu, index) { %>
+											<h4>
+												<%= edu.degree %> | <%= edu.school %>
+												<% if (isUser) { %>
+													<i class="fa fa-pencil edit-educationitem" data-toggle="modal" data-target="#editEducationModal<%= index %>"></i> 
+													<i class="fa fa-trash delete-educationitem" data-index="<%= index %>"></i>
+												<% } %>
+											</h4>
+											<span><%= edu.startYear %> - <%= edu.endYear %></span>
+											<p><%= edu.description %></p>
+
+											<% if (isUser) { %>
+												<div class="modal fade" id="editEducationModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="editEducationModalLabel<%= index %>" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="editEducationModalLabel<%= index %>">Edit Education</h5>
+															</div>
+															<div class="modal-body">
+																<!-- Campos do formulário preenchidos com valores de EJS -->
+																<input type="text" class="form-control mb-2 edu-degree" value="<%= edu.degree %>" placeholder="Degree">
+																<input type="text" class="form-control mb-2 edu-school" value="<%= edu.school %>" placeholder="School">
+																<input type="number" class="form-control mb-2 edu-start-year" value="<%= edu.startYear %>" placeholder="Start Year">
+																<input type="number" class="form-control mb-2 edu-end-year" value="<%= edu.endYear %>" placeholder="End Year">
+																<textarea class="form-control edu-description" rows="3" placeholder="Description"><%= edu.description %></textarea>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary save-edu-changes" data-index="<%= index %>">Save changes</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											<% } %>
+										<% }); %>
+									<% } else { %>
+										<p>No education information provided.</p>
+									<% } %>
+								</div>
+
+								<div class="user-profile-ov">
+									<h3>Location <% if (isUser) { %><i class="fa fa-pencil" id="editLocationIcon"></i> <% } %></h3>
+									<p><%= user.Location ? user.Location : "No location information provided." %></p>
+								</div>
+
+								<div class="user-profile-ov">
+									<h3>Skills <% if (isUser) { %> <i class="fa fa-plus-square" id="addSkillsIcon"></i> <% } %></h3>
+									<% if (user.Info.Skills.length > 0) { %>
+										<ul>
+											<% user.Info.Skills.forEach(function(skill, index) { %>
+												<li><%= skill %> <% if (isUser) { %><i class="fa-solid fa-xmark delete-skill" data-skill="<%= skill %>"></i> <% } %></li>
+											<% }); %>
+										</ul>
+									<% } else { %>
+										<p>No skills information provided.</p>
+									<% } %>
+								</div>
+
+								<% if (isUser) { %>
+									<div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="editAboutModalLabel">Edit About Me</h5>
+
+												</div>
+												<div class="modal-body">
+													<textarea class="form-control" id="aboutMeText" rows="3"><%= user.Info.About %></textarea>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary" id="saveAboutMe">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal for Adding Experience -->
+									<div class="modal fade" id="addExperienceModal" tabindex="-1" role="dialog" aria-labelledby="addExperienceModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addExperienceModalLabel">Add Experience</h5>
+
+												</div>
+												<div class="modal-body">
+													<!-- Form fields for experience details -->
+													<input type="text" class="form-control mb-2" id="expRole" placeholder="Role">
+													<input type="text" class="form-control mb-2" id="expCompany" placeholder="Company">
+													<input type="text" class="form-control mb-2" id="expStartYear" placeholder="Start Year">
+													<input type="text" class="form-control mb-2" id="expEndYear" placeholder="End Year">
+													<textarea class="form-control" id="expDescription" rows="3" placeholder="Description"></textarea>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary" id="addExperience">Add Experience</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal for Adding Education -->
+									<div class="modal fade" id="addEducationModal" tabindex="-1" role="dialog" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+												</div>
+												<div class="modal-body">
+													<!-- Form fields for education details -->
+													<input type="text" class="form-control mb-2" id="eduDegree" placeholder="Degree">
+													<input type="text" class="form-control mb-2" id="eduSchool" placeholder="School">
+													<input type="text" class="form-control mb-2" id="eduStartYear" placeholder="Start Year">
+													<input type="text" class="form-control mb-2" id="eduEndYear" placeholder="End Year">
+													<textarea class="form-control" id="eduDescription" rows="3" placeholder="Description"></textarea>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary" id="addEducation">Add Education</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal for Adding Skills -->
+									<div class="modal fade" id="addSkillsModal" tabindex="-1" role="dialog" aria-labelledby="addSkillsModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addSkillsModalLabel">Add Skills</h5>
+
+												</div>
+												<div class="modal-body">
+													<input type="text" class="form-control" id="newSkill" placeholder="New Skill">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary" id="addSkill">Add Skill</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal for Editing Location -->
+									<div class="modal fade" id="editLocationModal" tabindex="-1" role="dialog" aria-labelledby="editLocationModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="editLocationModalLabel">Edit Location</h5>
+
+												</div>
+												<div class="modal-body">
+													<input type="text" class="form-control" id="newLocation" value="<%= user.Location %>">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary" id="saveLocation">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<% } %>
+							</div><!--product-feed-tab end-->
+							<div class="product-feed-tab" id="rewivewdata">
+								<div class="posts-section">
+									<div class="post-bar reviewtitle">
+										<h2>Reviews</h2>
+									</div><!--post-bar end-->
+									
+									<% if(user.Reviews && user.Reviews.length > 0) { %>
+										<% user.Reviews.forEach(function(review) { %>
+											<div class="post-bar">
+												<div class="post_topbar mb-3">
+													<div class="usy-dt">
+														<img src="/public/img/profile/resources/us-pic.png" alt="">
+														<div class="usy-name">
+															<h3><%= review.Username %></h3>
+															<span><img src="/public/images/clock.png" alt=""><%= new Date(review.createdAt).toLocaleString() %></span> <!-- Adicionando a data da revisão -->
+														</div>
+													</div>
+												</div>
+												
+												<div class="job_descp mngdetl">
+													<div class="star-descp review">
+														<ul>
+															<% for(let i = 1; i <= review.Stars; i++) { %>
+																<li><i class="fa fa-star gold"></i></li>
+															<% } %>
+															<% for(let i = review.Stars; i < 5; i++) { %>
+																<li><i class="fa fa-star"></i></li>
+															<% } %>
+														</ul>
+														<a href="#" title=""><%= review.Stars %> stars</a>
+													</div>
+													<div class="reviewtext">
+														<p><%= review.Body %></p>
+														<hr>
+													</div>
+												</div>
+
+												<!--
+												<div class="post_topbar rep-post">
+													<div class="usy-dt">
+														<img src="/public/img/profile/resources/bg-img4.png" alt="">
+														<input class="reply" type="text" placeholder="Reply">
+														<a class="replybtn" href="#">Send</a>
+													</div>
+												</div>
+												-->
+											</div><!--post-bar end-->
+										<% }); %>
+									<% } else { %>
+										<div class="post-bar ">	
+											<p>No reviews to display.</p>
+										</div>
+									<% } %>
+
+									<% if (!isUser) { %>
+										<div class="post-bar">
+											<div class="post_topbar">
+												<h4>Add a Review</h4>
+											</div>
+											<form method="post" class="pt-3">
+												<div class="form-group rating mb-1">
+													<div class="stars mt-3">
+														<label class="mr-1">Rating:</label>
+														<label for="star1" class="star-label fa fa-star gold" star-level="1"></label>
+														<label for="star2" class="star-label fa fa-star gold" star-level="2"></label>
+														<label for="star3" class="star-label fa fa-star gold" star-level="3"></label>
+														<label for="star4" class="star-label fa fa-star" star-level="4"></label>
+														<label for="star5" class="star-label fa fa-star" star-level="5"></label>
+													</div>
+												</div>
+												<input type="hidden" name="starRating" id="starRating" value="3 ">
+												<div class="form-group">
+													<textarea name="reviewText" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
+												</div>
+												<button type="submit" class="btn btn-primary submit-review" user-id="<%= user._id %>">Submit Review</button>
+											</form>											
+										</div>
+									<% } %>
+									
+									
+								</div><!--posts-section end-->
+							</div><!--product-feed-tab end-->
+							<div class="product-feed-tab" id="portfolio-dd">
+								<div class="portfolio-gallery-sec">
+									<h3>Portfolio</h3>
+									<% if (isUser) { %>
+										<div class="portfolio-btn">
+											<a href="#" data-toggle="modal" data-target="#addProjectModal"><i class="fas fa-plus-square"></i> Add Portfolio</a>
+										</div>
+									<% } %>
+									<div class="gallery_pf">
+										<div class="row">
+											<% if(user.Portfolio && user.Portfolio.length > 0) { %>
+												<% user.Portfolio.forEach(function(project) { %>
+													<div class="col-lg-4 col-md-4 col-sm-6 col-6">
+														<div class="gallery_pt">
+															<img src="<%= project.projectImage %>" alt="<%= project.title %>">
+															<a href="<%= project.projectLink %>" target="_blank" title="<%= project.title %>"><img src="/public/img/profile/Porfolio-AllOut.png" alt=""></a>
+														</div><!--gallery_pt end-->
+													</div>
+												<% }); %>
+											<% } else { %>
+												<p>No portfolio projects to display.</p>
+											<% } %>
+										</div>
+									</div><!--gallery_pf end-->
+									
+									<% if (isUser) { %>
+										<!-- Modal -->
+										<div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<form id="addProjectForm">
+															<div class="form-group">
+																<label for="projectImage">Project Image</label>
+																<input type="file" class="form-control-file" id="projectImage">
+															</div>
+															<div class="form-group">
+																<label for="projectLink">Project Link</label>
+																<input type="text" class="form-control" id="projectLink" placeholder="Enter project link">
+															</div>
+														</form>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary save-project">Save changes</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									<% } %>
+								</div><!--portfolio-gallery-sec end-->
+							</div><!--product-feed-tab end-->
+							<div class="product-feed-tab" id="payment-dd">
+								<div class="billing-method">
+									<ul>
+										<li>
+											<h3>Add Billing Method</h3>
+											<a href="#" title=""><i class="fa fa-plus-circle"></i></a>
+										</li>
+										<li>
+											<h3>See Activity</h3>
+											<a href="#" title="">View All</a>
+										</li>
+										<li>
+											<h3>Total Money</h3>
+											<span>$0.00</span>
+										</li>
+									</ul>
+									<div class="lt-sec">
+										<img src="/public/images/lt-icon.png" alt="">
+										<h4>All your transactions are saved here</h4>
+										<a href="#" title="">Click Here</a>
+									</div>
+								</div><!--billing-method end-->
+								<div class="add-billing-method">
+									<h3>Add Billing Method</h3>
+									<h4><img src="/public/images/dlr-icon.png" alt=""><span>With workwise payment protection , only pay for work delivered.</span></h4>
+									<div class="payment_methods">
+										<h4>Credit or Debit Cards</h4>
+										<form>
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="cc-head">
+														<h5>Card Number</h5>
+														<ul>
+															<li><img src="/public/images/cc-icon1.png" alt=""></li>
+															<li><img src="/public/images/cc-icon2.png" alt=""></li>
+															<li><img src="/public/images/cc-icon3.png" alt=""></li>
+															<li><img src="/public/images/cc-icon4.png" alt=""></li>
+														</ul>
+													</div>
+													<div class="inpt-field pd-moree">
+														<input type="text" name="cc-number" placeholder="">
+														<i class="fa fa-credit-card"></i>
+													</div><!--inpt-field end-->
+												</div>
+												<div class="col-lg-6">
+													<div class="cc-head">
+														<h5>First Name</h5>
+													</div>
+													<div class="inpt-field">
+														<input type="text" name="f-name" placeholder="">
+													</div><!--inpt-field end-->
+												</div>
+												<div class="col-lg-6">
+													<div class="cc-head">
+														<h5>Last Name</h5>
+													</div>
+													<div class="inpt-field">
+														<input type="text" name="l-name" placeholder="">
+													</div><!--inpt-field end-->
+												</div>
+												<div class="col-lg-6">
+													<div class="cc-head">
+														<h5>Expiresons</h5>
+													</div>
+													<div class="rowwy">
+														<div class="row">
+															<div class="col-lg-6 pd-left-none no-pd">
+																<div class="inpt-field">
+																	<input type="text" name="f-name" placeholder="">
+																</div><!--inpt-field end-->
+															</div>
+															<div class="col-lg-6 pd-right-none no-pd">
+																<div class="inpt-field">
+																	<input type="text" name="f-name" placeholder="">
+																</div><!--inpt-field end-->
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="cc-head">
+														<h5>Cvv (Security Code) <i class="fa fa-question-circle"></i></h5>
+													</div>
+													<div class="inpt-field">
+														<input type="text" name="l-name" placeholder="">
+													</div><!--inpt-field end-->
+												</div>
+												<div class="col-lg-12">
+													<button type="submit">Continue</button>
+												</div>
+											</div>
+										</form>
+										<h4>Add Paypal Account</h4>
+									</div>
+								</div><!--add-billing-method end-->
+							</div><!--product-feed-tab end-->
+						</div><!--main-ws-sec end-->
+					</div>
+					<div class="col-lg-3">
+						<div class="right-sidebar">
+							<div class="message-btn">
+								<a href="profile-account-setting.html" title=""><i class="fas fa-cog"></i> Setting</a>
+							</div>
+							<div class="widget widget-portfolio">
+								<div class="wd-heady">
+									<h3>Portfolio</h3>
+									<img src="/public/images/photo-icon.png" alt="">
+								</div>
+								<div class="pf-gallery">
+									<ul>
+										<% if(user.Portfolio && user.Portfolio.length > 0) { %>
+											<% user.Portfolio.forEach(function(project) { %>
+												<li><a href="<%= project.projectLink %>" target="_blank" title=""><img src="<%= project.projectImage %>" alt=""></a></li>
+											<% }); %>
+										<% } else { %>
+											<p>No portfolio projects to display.</p>
+										<% } %>
+									</ul>
+								</div><!--gallery_pf end-->
+							</div><!--widget-portfolio end-->
+						</div><!--right-sidebar end-->
+					</div>
+				</div>
+			</div><!-- main-section-data end-->
+		</div> 
+	</div>
+</main>
+
+<script src="/public/js/profile.js"></script>
+
+<%- include('../partials/footer.html') %>

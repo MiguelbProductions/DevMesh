@@ -19,25 +19,64 @@ $(document).ready(function() {
     ];    
 
     var SelectedPlaceholder = placeholders[Math.floor(Math.random() * placeholders.length)]
-    $('#postbody-content').attr('placeholder', SelectedPlaceholder);
+    $('#postbody-content').attr('placeholder', SelectedPlaceholder + " (Min 10 words)");
 
-    $("#postbody-content").keyup(function() {
-        var content = $(this).val();
-        var wordsCount = countWords(content);
-        var minWords = 10; 
+    $("#postbody-title").keyup(verifyvalidation);
+    $("#postbody-content").keyup(verifyvalidation);
+    $("#postbody-tags").keyup(verifyvalidation);
 
-        if(wordsCount >= minWords) {
-            $(".btn-publish").removeClass('btn-secondary').addClass('btn-success');
-        } else {
-            $(".btn-publish").removeClass('btn-success').addClass('btn-secondary');
-        }
+    $(document).on('click', '.btn-publish.btn-success', function() {
+        const title = $('#postbody-title').val();
+        const content = $('#postbody-content').val();
+        const tags = $('#postbody-tags').val().split(',').map(tag => tag.trim());
+
+    
+        $.ajax({
+            url: '/addpost',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ title, content, tags }),
+            success: function(response) {
+                alert('Post published successfully!');
+
+                window.location.reload();
+            },
+            error: function(error) {
+                console.error(error);
+                alert('Failed to publish post.');
+            }
+        });
     });
 });
 
+function verifyvalidation() {
+    var Post_Title = $("#postbody-title").val();
+    var Post_Content = $("#postbody-content").val();
+    var Post_Tags = $("#postbody-tags").val();
 
-function countWords(s){
-    s = s.replace(/(^\s*)|(\s*$)/gi,""); // remove espaços do inicio e do fim
-    s = s.replace(/[ ]{2,}/gi," "); // reduz multiplos espaços para um único
-    s = s.replace(/\n /,"\n"); // exclui novas linhas com espaços iniciais
-    return s.split(' ').length;
+    var NumWords_Title = countWords(Post_Title);
+    var NumWords_Content = countWords(Post_Content);
+    var NumTags = countTags(Post_Tags);
+
+    if (NumWords_Title >= 4 && NumWords_Content >= 10 && NumTags >= 2) {
+        $(".btn-publish").removeClass('btn-secondary').addClass('btn-success');
+    } else {
+        $(".btn-publish").removeClass('btn-success').addClass('btn-secondary');
+    }
+}
+
+function countWords(s) {
+    s = s.replace(/(^\s*)|(\s*$)/gi, "");
+    s = s.replace(/[ ]{2,}/gi, " ");
+    s = s.replace(/\n /, "\n");
+    return s.split(' ').filter(function(str){return str!="";}).length;
+}
+
+function countTags(s) {
+    var tagsArray = s.split(',').map(function(tag) {
+        return tag.trim();
+    }).filter(function(tag) {
+        return tag.length > 0;
+    });
+    return tagsArray.length;
 }
