@@ -152,6 +152,18 @@
 						<div class="main-ws-sec">
 							<div class="user-tab-sec rewivew">
 								<h3><%= user.Name %></h3>
+								<% if (!isUser) { %>
+									<% if (friendStatus == "not_friends") { %>
+										<span class="friend-control add-user" request-userid="<%= user._id %>" action="send_request"><i class="fa-solid fa-user-plus fa-xs"></i> Follow</span>
+									<% } else if (friendStatus == "request_sent") { %>
+										<span class="friend-control cancel-request" request-userid="<%= user._id %>" action="cancel"><i class="fa-solid fa-user-times fa-xs"></i> Cancel Request</span>
+									<% } else if (friendStatus == "request_received") { %>
+										<span class="friend-control accept-request" request-userid="<%= user._id %>" action="accept"><i class="fa-solid fa-user-check fa-xs"></i> Accept Request</span>
+										<span class="friend-control decline-request" request-userid="<%= user._id %>" action="decline"><i class="fa-solid fa-user-times fa-xs"></i> Decline Request</span>
+									<% } else if (friendStatus == "friends") { %>
+										<span class="friend-control unfriend" request-userid="<%= user._id %>" action="remove"><i class="fa-solid fa-user-slash fa-xs"></i> Unfriend</span>
+									<% } %>
+								<% } %>
 								<div class="star-descp">
 									<span><%= user.WorkArea %></span>
 									<!--

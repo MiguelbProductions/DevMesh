@@ -78,6 +78,7 @@ app.get("/:page?", async function(req, res) {
             const db = client.db(dbName);
             const users = db.collection("Users");
             const posts = db.collection("Posts");
+            const friendsCollection = db.collection("Friends");
         
             const userId = new ObjectId(req.session.userId);
 
@@ -88,6 +89,23 @@ app.get("/:page?", async function(req, res) {
                     var userPosts = await posts.find({ author: user.Name }).sort({ createdAt: -1 }).toArray();
 
                     res.render(`main/${page}.html`, { user: user, posts: userPosts, isUser: true });
+                } else if (page == "messages") { 
+                    const friends = await friendsCollection.find({
+                        $or: [
+                            { requester: userId, status: "accepted" },
+                            { recipient: userId, status: "accepted" }
+                        ]
+                    }).toArray();
+
+                    const friendIds = friends.map(f => 
+                        f.requester.equals(userId) ? f.recipient : f.requester
+                    );
+
+                    const friendUsers = await users.find({
+                        _id: { $in: friendIds }
+                    }).toArray();
+                    console.log(friendUsers)
+                    res.render(`main/${page}.html`, { user: user, friends: friendUsers });
                 } else {
                     res.render(`main/${page}.html`, { user: user });
                 }
@@ -115,13 +133,31 @@ app.get('/profile/user/:userid', async (req, res) => {
         const db = client.db(dbName);
         const users = db.collection('Users');
         const posts = db.collection("Posts");
+        const friendsCollection = db.collection("Friends");
 
         const user = await users.findOne({ _id: new ObjectId(userId) });
 
         if (req.session.userId) {
             if (user) {
                 var userPosts = await posts.find({ author: user.Name }).sort({ createdAt: -1 }).toArray();
-                res.render('main/profile', { user: user, posts: userPosts, isUser: (req.params.userid == req.session.userId) });
+                
+                let friendStatus = "not_friends";
+                const friendRelation = await friendsCollection.findOne({
+                    $or: [
+                        { requester: new ObjectId(req.session.userId), recipient: new ObjectId(userId) },
+                        { requester: new ObjectId(userId), recipient: new ObjectId(req.session.userId) }
+                    ]
+                });
+
+                if (friendRelation) {
+                    if (friendRelation.status === 'pending') {
+                        friendStatus = friendRelation.requester.toString() === req.session.userId ? "request_sent" : "request_received";
+                    } else if (friendRelation.status === 'accepted') {
+                        friendStatus = "friends";
+                    }
+                }
+                
+                res.render('main/profile', { user: user, posts: userPosts, friendStatus: friendStatus, isUser: (req.params.userid == req.session.userId) });
             } else {
                 res.status(404).send('User not found');
             }
@@ -682,7 +718,105 @@ app.post('/update-profile-image', upload.single('profileimage'), async (req, res
     }
 });
 
+app.post('/handle-friend-request', async (req, res) => {
+    const sessionUserId = req.session.userId;
+    const { requestUserId, action } = req.body;
 
+    if (!req.session.userId) {
+        return res.status(403).send('Not authorized');
+    }
+
+    const client = await MongoClient.connect(dbUrl);
+    const db = client.db(dbName);
+    const friendsCollection = db.collection("Friends");
+
+    try {
+        const existingRequest = await friendsCollection.findOne({
+            $or: [
+                { requester: new ObjectId(sessionUserId), recipient: new ObjectId(requestUserId) },
+                { requester: new ObjectId(requestUserId), recipient: new ObjectId(sessionUserId) }
+            ]
+        });
+
+        switch (action) {
+            case 'accept':
+                if (existingRequest && existingRequest.status === 'pending' && existingRequest.requester.toString() === requestUserId) {
+                    await friendsCollection.updateOne({ _id: existingRequest._id }, { $set: { status: 'accepted' } });
+                    return res.json({ message: 'Friend request accepted' });
+                }
+                break;
+            case 'decline':
+                if (existingRequest && existingRequest.status === 'pending' && existingRequest.requester.toString() === requestUserId) {
+                    await friendsCollection.deleteOne({ _id: existingRequest._id });
+                    return res.json({ message: 'Friend request declined' });
+                }
+                break;
+            case 'cancel':
+                if (existingRequest && existingRequest.status === 'pending' && existingRequest.requester.toString() === sessionUserId) {
+                    await friendsCollection.deleteOne({ _id: existingRequest._id });
+                    return res.json({ message: 'Friend request canceled' });
+                }
+                break;
+            case 'remove':
+                if (existingRequest && existingRequest.status === 'accepted') {
+                    await friendsCollection.deleteOne({ _id: existingRequest._id });
+                    return res.json({ message: 'Friend removed' });
+                }
+                break;
+            default:
+                if (!existingRequest) {
+                    await friendsCollection.insertOne({
+                        requester: new ObjectId(sessionUserId),
+                        recipient: new ObjectId(requestUserId),
+                        status: 'pending'
+                    });
+                    return res.json({ message: 'Friend request sent' });
+                }
+        }
+    } catch (error) {
+        console.error('Failed to handle friend request:', error);
+        res.status(500).send('Failed to handle friend request.');
+    }
+});
+
+app.post('/get-chat-by-userid', async (req, res) => {
+    const sessionUserId = req.session.userId;
+    const { Selected_UserId } = req.body;
+
+    if (!req.session.userId) {
+        return res.status(403).send('Not authorized');
+    }
+
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const chatsCollection = db.collection("Chats");
+
+        const chat = await chatsCollection.findOne({
+            participants: { $all: [new ObjectId(sessionUserId), new ObjectId(Selected_UserId)] }
+        });
+
+        if (chat) {
+            return res.json(chat);
+        } else {
+            const newChat = {
+                participants: [new ObjectId(sessionUserId), new ObjectId(Selected_UserId)],
+                messages: [] 
+            };
+
+            const result = await chatsCollection.insertOne(newChat);
+
+            if (result.acknowledged) {
+                return res.json(await chatsCollection.findOne({ _id: result.insertedId }));
+            } else {
+                throw new Error('Failed to create a new chat');
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching or creating chat:', error);
+        res.status(500).send('Failed to fetch or create chat.');
+    }
+});
 
 const PORT = 8001
 app.listen(PORT, () => {

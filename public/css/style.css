@@ -2812,11 +2812,32 @@ footer {
 	padding-top: 4px;
 }
 .user-tab-sec h3 {
+	display: inline-block;
 	color: #000000;
     font-size: 24px;
     font-weight: 600;
     text-transform: capitalize;
+	margin-right: 0.2em;
     margin-bottom: 15px;
+}
+.user-tab-sec span {
+	padding: 0.35em 0.7em;
+	margin: 0 0.05em 0 0.4em;
+	border-radius: 1em;
+	color: white;
+	cursor: pointer;
+}
+.user-tab-sec .add-user {
+	background-color: #0a66c2;
+}
+.user-tab-sec .accept-request {
+	background-color: #00b540;
+}
+.user-tab-sec .cancel-request, .user-tab-sec .decline-request, .user-tab-sec .unfriend {
+	background-color: #be0303;
+}
+.user-tab-sec span i {
+	margin-right: 0.25em;
 }
 .star-descp {
 	float: left;
@@ -4868,7 +4889,7 @@ a:hover {
 	-ms-border-radius: 100px;
 	-o-border-radius: 100px;
 	border-radius: 100px;
-	background-color: var(--primary);
+	background-color: green;
 	position: absolute;
 	top: -3px;
 	right: 0;

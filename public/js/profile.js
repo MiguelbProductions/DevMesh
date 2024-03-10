@@ -377,4 +377,26 @@ $(document).on("ready", function() {
         }
     })
     
+
+    $(".friend-control").click(function() {
+        var requestUserId = $(this).attr('request-userid');
+        var action = $(this).attr('action');
+
+        $.ajax({
+            url: '/handle-friend-request',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ requestUserId, action }),
+            success: function(response) {
+                alert(response.message);
+                window.location.reload();
+            },
+            error: function(error) {
+                console.error('Error handling friend request:', error.responseText);
+                alert('Failed to handle friend request.');
+            }
+        });
+
+       
+    })
 })
