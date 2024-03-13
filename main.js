@@ -1062,7 +1062,7 @@ app.post('/post-question', async (req, res) => {
 
 
 
-const PORT = 8001
+const PORT = 80
 server.listen(PORT, () => {
     console.log(`Dev MEsh running on Port ${PORT}`)
 })
