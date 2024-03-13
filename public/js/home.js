@@ -47,6 +47,40 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#postQuestionBtn').click(function() {
+        var title = $('#title').val();
+        var body = tinymce.activeEditor.getContent();
+        var tags = $('#tags').val();
+
+        if (title && body && tags) {
+            $.ajax({
+                url: '/post-question',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    userid: null,
+                    title: title,
+                    body: body,
+                    tags: tags.split(','),
+                    postDate: new Date(),
+                    comments: [],
+                    likes: [],
+                    views: 0,
+                    shares: 0,
+                }),
+                success: function(response) {
+                    $('#postQuestionModal').modal('hide');
+                    alert('Question posted successfully!');
+                },
+                error: function(error) {
+                    alert('Error posting question.');
+                }
+            });
+        } else {
+            alert('Please fill out all fields.');
+        }
+    });
 });
 
 function verifyvalidation() {

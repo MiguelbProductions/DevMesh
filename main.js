@@ -1,12 +1,100 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const path = require("path")
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
 const multer = require('multer');
-const session = require('express-session')
-const { MongoClient, ObjectId } = require("mongodb")
+const session = require('express-session');
+const { MongoClient, ObjectId } = require("mongodb");
+const http = require('http');
+const socketIo = require('socket.io');
 const bcrypt = require('bcrypt');
 
 const app = express()
+const server = http.createServer(app);
+const io = socketIo(server);
+
+/* ============ CHAT SERVICE ============ */
+
+io.on('connection', function(socket) {
+    const userId = socket.handshake.query.userId;
+
+    console.log(`The user ${userId} was connected identified by ${socket.id}`);
+
+    updateUserStatus(userId, true);
+
+    socket.on('join chat', function(room) {
+        console.log(`The user ${userId} has joined room ${room}`);
+        
+        socket.join(room);
+    });
+
+    socket.on('chat message', async function(data) {
+        const { sender, recipient, context } = data;
+        const room = [sender, recipient].sort().join("_");
+
+        try {
+            const client = await MongoClient.connect(dbUrl);
+            const db = client.db(dbName);
+            const usersCollection = db.collection("Users");
+            const chatsCollection = db.collection("Chats");
+
+            const senderUser = await usersCollection.findOne({ _id: new ObjectId(sender) });
+            let userImage = '/public/img/profile/DefaultProfileIcon.png';
+            if (senderUser && senderUser.Image) {
+                userImage = senderUser.Image;
+            }
+
+            const formattedMessage = {
+                text: context, 
+                senderId: sender, 
+                timestamp: new Date(),
+                userImage: userImage,
+            };
+
+            client.close();
+
+            io.to(room).emit('chat message', formattedMessage);
+
+            await chatsCollection.findOneAndUpdate(
+                { participants: { $all: [new ObjectId(sender), new ObjectId(recipient)] } },
+                { $push: { messages: formattedMessage } },
+                { returnOriginal: false, upsert: true }
+            );
+        } catch (error) {
+            console.error('Error saving chat message:', error);
+        }
+    });
+
+    socket.on('typing', function(data) {
+        const room = [data.sender, data.recipient].sort().join("_");
+        socket.to(room).emit('typing', data);
+    });
+    
+    socket.on('stop typing', function(data) {
+        const room = [data.sender, data.recipient].sort().join("_");
+        socket.to(room).emit('stop typing', data);
+    });
+    
+
+    socket.on('disconnect', function() {
+        console.log(`The user ${userId} has been disconnected.`);
+
+        updateUserStatus(userId, false);
+    });
+});
+
+async function updateUserStatus(userId, isOnline) {
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const usersCollection = db.collection("Users");
+        await usersCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { isOnline: isOnline } });
+        client.close();
+    } catch (error) {
+        console.error('Error updating user status:', error);
+    }
+}
+
+/* ============ WEB HOSTING ============ */
 
 const dbUrl = 'mongodb://localhost:27017'
 const dbName = "DevMesh"
@@ -73,13 +161,14 @@ app.get("/:page?", async function(req, res) {
     if (req.session.userId) {
         try {
             const page = req.params.page || "Home"
-
             const client = await MongoClient.connect(dbUrl);
             const db = client.db(dbName);
             const users = db.collection("Users");
             const posts = db.collection("Posts");
+            const forum = db.collection("Forum");
             const friendsCollection = db.collection("Friends");
-        
+            const chatsCollection = db.collection("Chats");
+
             const userId = new ObjectId(req.session.userId);
 
             var user = await users.findOne({ _id: userId });
@@ -89,6 +178,14 @@ app.get("/:page?", async function(req, res) {
                     var userPosts = await posts.find({ author: user.Name }).sort({ createdAt: -1 }).toArray();
 
                     res.render(`main/${page}.html`, { user: user, posts: userPosts, isUser: true });
+                } else if (page == "profiles") { 
+                    const usersList = await users.find({}).toArray();
+
+                    res.render(`main/${page}.html`, { user: user, usersList: usersList });
+                } else if (page == "forum") { 
+                    const forumPosts = await forum.find({}).sort({createdAt: -1}).toArray();
+                
+                    res.render(`main/${page}.html`, { user: user, forumPosts: forumPosts });
                 } else if (page == "messages") { 
                     const friends = await friendsCollection.find({
                         $or: [
@@ -104,9 +201,25 @@ app.get("/:page?", async function(req, res) {
                     const friendUsers = await users.find({
                         _id: { $in: friendIds }
                     }).toArray();
-                    console.log(friendUsers)
+
+                    for (let friend of friendUsers) {
+                        const chat = await chatsCollection.findOne(
+                            { participants: { $all: [userId, friend._id] } },
+                            { sort: { 'messages.timestamp': -1 }, limit: 1 }
+                        );
+                        
+                        if (chat && chat.messages && chat.messages.length > 0) {
+                            const lastMessage = chat.messages[chat.messages.length - 1];
+                            const senderUser = await users.findOne({_id: new ObjectId(lastMessage.senderId)});
+
+                            friend.lastMessage = senderUser.Name + ": " + lastMessage.text;
+                        } else {
+                            friend.lastMessage = '';
+                        }
+                    }
+
                     res.render(`main/${page}.html`, { user: user, friends: friendUsers });
-                } else {
+                } else if (page != "socket.io") {
                     res.render(`main/${page}.html`, { user: user });
                 }
             } else {
@@ -124,6 +237,46 @@ app.get("/:page?", async function(req, res) {
         return
     }
 })
+
+app.get("/forum/post/:postId", async function(req, res) {
+    if (req.session.userId) {
+        try {
+            const client = await MongoClient.connect(dbUrl);
+            const db = client.db(dbName);
+            const users = db.collection("Users");
+            const forumCollection = db.collection("Forum");
+    
+            const userId = new ObjectId(req.session.userId);
+            const user = await users.findOne({ _id: userId });
+    
+            const postId = req.params.postId;
+            const postObjectId = new ObjectId(postId);
+    
+            await forumCollection.updateOne(
+                { _id: postObjectId },
+                { $inc: { views: 1 } }
+            );
+
+            const post = await forumCollection.findOne({ _id: postObjectId });
+            
+            if (post) {
+                const postUser = await users.findOne({ _id: new ObjectId(post.userid) });
+
+                res.render("main/forum-post-view.html", { user: user, post: post, postUser: postUser });
+            } else {
+                res.status(404).send("Post not found");
+            }
+        } catch (error) {
+            console.error("Database connection error:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    } else {
+        req.session.redirectTo = req.originalUrl
+        res.redirect('/auth/sign')
+        return
+    }
+});
+
 
 app.get('/profile/user/:userid', async (req, res) => {
     const userId = req.params.userid;
@@ -818,7 +971,98 @@ app.post('/get-chat-by-userid', async (req, res) => {
     }
 });
 
+app.post('/post-question', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const collection = db.collection("Forum");
+
+        req.body.userid = req.session.userId
+
+        await collection.insertOne(req.body);
+        res.status(200).json({ message: "Question posted successfully!" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Failed to post question.");
+    }
+}).post("/forum-post-comment", async function(req, res) {
+    if (!req.session.userId) {
+        return res.status(403).send("Not authorized");
+    }
+
+    const postId = req.body.postId;
+    const commentText  = req.body.comment;
+    const userId = req.session.userId;
+
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const usersCollection = db.collection("Users");
+        const forumCollection = db.collection("Forum");
+
+        const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+        if (!user) { return res.status(404).send("User not found"); }
+
+        const username = user.Username;
+        const userImage = user.Image;
+
+        if (commentText) {
+            await forumCollection.updateOne(
+                { _id: new ObjectId(postId) },
+                { $push: { comments: { username: username, userImage: userImage, text: commentText, timestamp: new Date() } } }
+            );
+
+            res.send("Comment added successfully");
+        } else {
+            res.status(400).send("Comment is empty");
+        }
+    } catch (error) {
+        console.error("Database connection error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}).post('/forum-post-like', async function(req, res) {
+    const postId = req.body.postId;
+    const userId = req.session.userId;
+    
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const forumCollection = db.collection('Forum');
+        
+        const updatedPost = await forumCollection.findOneAndUpdate(
+            { _id: new ObjectId(postId) },
+            { $addToSet: { likes: userId } },
+            { returnOriginal: false }
+        );
+        
+        res.send("Like adde sucefully");
+    } catch (error) {
+        console.error('Erro na conexão com o banco de dados:', error);
+        res.status(500).send('Erro interno do servidor');
+    }
+}).post('/forum-post-share', async function(req, res) {
+    const postId = req.body.postId;
+    
+    try {
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+        const forumCollection = db.collection('Forum');
+
+        await forumCollection.updateOne(
+            { _id: new ObjectId(postId) },
+            { $inc: { shares: 1 } }
+        );
+        
+        res.json({ message: "Share counter incremented successfully" });
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 const PORT = 8001
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Brain Burst running on Page http://localhost:${PORT}`)
 })

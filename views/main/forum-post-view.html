@@ -1,0 +1,160 @@
+<%- include('../partials/header.html') %>
+
+
+	<section class="forum-page" id="forum-page" post-id="<%= post._id %>">
+		<div class="container">
+			<div class="forum-questions-sec">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="forum-post-view">
+							<div class="usr-question">
+								<div class="usr_img">
+									<img src="<%= postUser.Image %>" alt="">
+								</div>
+								<div class="usr_quest">
+									<h3><%= post.title %></h3>
+									<span><i class="fa fa-clock-o"></i><%= post.postDate %></span>
+									<ul class="react-links">
+										<li id="like-button"><i class="fa fa-heart mr-1"></i> Vote <%= post.likes.length %></li>
+										<li id="share-button"><i class="fa fa-share-alt mr-1"></i> Share</li>
+									</ul>
+									<ul class="quest-tags mb-3">
+										<% post.tags.forEach(function(tag) { %>
+											<li><%= tag %></li>
+										<% }); %>
+									</ul>									
+									<%- post.body %>
+									<% if (post.comments.length > 0) { %>
+										<div class="comment-section">
+											<h3><%= post.comments.length %> Comments</h3>
+											<div class="comment-sec">
+												<ul>
+													<% post.comments.forEach(function(comment) { %>
+														<li>
+															<div class="comment-list">
+																<div class="bg-img">
+																	<img src="<%= comment.userImage || '/public/img/profile/DefaultProfileIcon.png' %>" alt="">
+																</div>
+																<div class="comment">
+																	<h3><%= comment.username %></h3>
+																	<span><img src="/public/images/clock.png" alt=""> <%= comment.timestamp %></span>
+																	<p><%= comment.text %></p>
+																</div>
+															</div>
+														</li>
+													<% }); %>
+												</ul>
+											</div>
+										</div>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<div class="post-comment-box">
+							<h3>Share a Comment <i class="fa-solid fa-share-all fa-xs ml-1"></i></h3>
+							<div class="user-poster">
+								<div class="usr-post-img">
+									<img src="<%= postUser.Image %>" alt="">
+								</div>
+								<div class="post_comment_sec">
+									<form id="commentForm">
+										<input type="hidden" name="postId" value="<%= post._id %>">
+										<textarea name="commentText" placeholder="Your Answer"></textarea>
+										<button type="submit">Post Answer</button>
+									</form>
+								</div><!--post_comment_sec end-->
+							</div><!--user-poster end-->
+						</div><!--post-comment-box end-->
+						<div class="next-prev">
+							<a href="#" title="" class="fl-left">Preview</a>
+							<a href="#" title="" class="fl-right">Next</a>
+						</div><!--next-prev end-->
+					</div>
+					<div class="col-lg-4">
+						<div class="widget widget-feat">
+							<ul>
+								<li>
+									<i class="fa fa-heart"></i>
+									<span><%= post.likes.length %></span>
+								</li>
+								<li>
+									<i class="fa fa-comment"></i>
+									<span><%= post.comments.length %></span>
+								</li>
+								<li>
+									<i class="fa fa-share-alt"></i>
+									<span><%= post.shares %></span>
+								</li>
+								<li>
+									<i class="fa fa-eye"></i>
+									<span><%= post.views %></span>
+								</li>
+							</ul>
+						</div>
+						<!--
+						<div class="widget widget-user">
+							<h3 class="title-wd">Top User of the Week</h3>
+							<ul>
+								<li>
+									<div class="usr-msg-details">
+										<div class="usr-ms-img">
+											<img src="/public/images/resources/m-img1.png" alt="">
+										</div>
+										<div class="usr-mg-info">
+											<h3>Jessica William</h3>
+											<p>Graphic Designer </p>
+										</div>
+									</div>
+									<span><img src="/public/images/price1.png" alt="">1185</span>
+								</li>
+								<li>
+									<div class="usr-msg-details">
+										<div class="usr-ms-img">
+											<img src="/public/images/resources/m-img2.png" alt="">
+										</div>
+										<div class="usr-mg-info">
+											<h3>John Doe</h3>
+											<p>PHP Developer</p>
+										</div>
+									</div>
+									<span><img src="/public/images/price2.png" alt="">1165</span>
+								</li>
+								<li>
+									<div class="usr-msg-details">
+										<div class="usr-ms-img">
+											<img src="/public/images/resources/m-img3.png" alt="">
+										</div>
+										<div class="usr-mg-info">
+											<h3>Poonam</h3>
+											<p>Wordpress Developer </p>
+										</div>
+									</div>
+									<span><img src="/public/images/price3.png" alt="">1120</span>
+								</li>
+								<li>
+									<div class="usr-msg-details">
+										<div class="usr-ms-img">
+											<img src="/public/images/resources/m-img4.png" alt="">
+										</div>
+										<div class="usr-mg-info">
+											<h3>Bill Gates</h3>
+											<p>C & C++ Developer </p>
+										</div>
+									</div>
+									<span><img src="/public/images/price4.png" alt="">1009</span>
+								</li>
+							</ul>
+						</div>
+						<div class="widget widget-adver">
+							<img src="/public/images/resources/adver-img.png" alt="">
+						</div>
+						-->
+					</div>
+				</div>
+			</div><!--forum-questions-sec end-->
+		</div>
+	</section><!--forum-page end-->
+
+	<script src="/public/js/forumview.js"></script>
+
+<%- include('../partials/footer.html') %>

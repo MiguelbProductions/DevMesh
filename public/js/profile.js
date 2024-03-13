@@ -327,7 +327,6 @@ $(document).on("ready", function() {
     });
 
     $('#profileImage').change(function(e) {
-        console.log("x")
         var formData = new FormData();
         var files = $('#profileImage')[0].files;
 

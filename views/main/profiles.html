@@ -1,0 +1,35 @@
+<%- include('../partials/header.html') %>
+	<section class="companies-info">
+		<div class="container">
+			<div class="company-title">
+				<h3>All Profiles</h3>
+			</div><!--company-title end-->
+			<div class="companies-list">
+				<div class="row">
+					<% usersList.forEach(function(user) { %>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="<%= user.Image || '/public/images/resources/default-profile.png' %>" alt="">
+									<h3><%= user.Name %></h3>
+									<h4><%= user.WorkArea %></h4>
+									<!-- Outras informações do usuário -->
+								</div>
+								<a href="/profile/user/<%= user._id %>" title="" class="view-more-pro">View Profile</a>
+							</div><!--company_profile_info end-->
+						</div>
+					<% }); %>
+				</div>
+			</div>
+			<!--
+			<div class="process-comm">
+				<div class="spinner">
+					<div class="bounce1"></div>
+					<div class="bounce2"></div>
+					<div class="bounce3"></div>
+				</div>
+			</div>
+			-->
+		</div>
+	</section><!--companies-info end-->
+<%- include('../partials/footer.html') %>

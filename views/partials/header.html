@@ -27,9 +27,7 @@
 	<script type="text/javascript" src="/public/externalpackages/jquery.min.js"></script>
 	<script type="text/javascript" src="/public/externalpackages/jquery.mCustomScrollbar.js"></script>
 </head>
-
-<body>	
-
+<body>
 	<div class="wrapper">	
 		<header>
 			<div class="container">
@@ -47,13 +45,26 @@
 						<ul>
 							<li>
 								<a href="/">
-									<span><img src="/public/images/icon1.png" alt=""></span>
+									<span><img src="/public/img/header/icon1.png" alt=""></span>
 									Home
 								</a>
 							</li>
 							<li>
+								<a href="/profiles">
+									<span><img src="/public/img/header/icon4.png" alt=""></span>
+									Profiles
+								</a>
+							</li>
+							<li>
+								<a href="/forum">
+									<span><img src="/public/img/header/icon2.png" alt=""></span>
+									Forum
+								</a>
+							</li>
+							<!--
+							<li>
 								<a href="/companies">
-									<span><img src="/public/images/icon2.png" alt=""></span>
+									<span><img src="/public/img/header/icon2.png" alt=""></span>
 									Companies
 								</a>
 								<ul>
@@ -61,17 +72,19 @@
 									<li><a href="/company-profile">Company Profile</a></li>
 								</ul>
 							</li>
+							-->
 							<li>
-								<a href="jobs.html">
-									<span><img src="/public/images/icon5.png" alt=""></span>
+								<a href="/jobs">
+									<span><img src="/public/img/header/icon5.png" alt=""></span>
 									Jobs
 								</a>
 							</li>
 							<li>
-								<a href="#" class="not-box-openm">
-									<span><img src="/public/images/icon6.png" alt=""></span>
+								<a href="/messages" class="not-box-openm">
+									<span><img src="/public/img/header/icon6.png" alt=""></span>
 									Messages
 								</a>
+								<!--
 								<div class="notification-box msg" id="message">
 									<div class="nt-title">
 										<h4>Setting</h4>
@@ -113,17 +126,11 @@
 						  				</div>
 									</div>
 								</div>
+								-->
 							</li>
-							<li>
-								<a href="/profile">
-									<span><img src="/public/images/icon4.png" alt=""></span>
-									Profile
-								</a>
-							</li>
-
 							<li>
 								<a href="#" class="not-box-open">
-									<span><img src="/public/images/icon7.png" alt=""></span>
+									<span><img src="/public/img/header/icon7.png" alt=""></span>
 									Notification
 								</a>
 								<div class="notification-box noti" id="notification">
@@ -179,13 +186,14 @@
 					<div class="menu-btn">
 						<a href="#"><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
-					<div class="user-account">
+					<div class="user-account" style="width: auto;">
 						<div class="user-info">
-							<img src="/public/images/resources/user.png" alt="">
-							<a href="#"><%= user.Name %></a>
+							<img src="<%= user.Image %>" alt="User Image" style="width: 30px; height: 30px;">
+							<a href="/profile" class="mr-4"><%= user.Name.length > 8 ? user.Name.substring(0, 8) + '...' : user.Name %></a>
 							<i class="la la-sort-down"></i>
 						</div>
 						<div class="user-account-settingss" id="users">
+							<!--
 							<h3>Online Status</h3>
 							<ul class="on-off-status">
 								<li>
@@ -213,7 +221,8 @@
 									<input type="text" name="search">
 									<button type="submit">Ok</button>
 								</form>
-							</div><!--search_form end-->
+							</div>
+							-->
 							<h3>Setting</h3>
 							<ul class="us-links">
 								<li><a href="profile-account-setting.html">Account Setting</a></li>
@@ -222,8 +231,8 @@
 								<li><a href="#">Terms & Conditions</a></li>
 							</ul>
 							<h3 class="tc"><a href="/auth/logout">Logout</a></h3>
-						</div><!--user-account-settingss end-->
+						</div>
 					</div>
-				</div><!--header-data end-->
+				</div>
 			</div>
-		</header><!--header end-->	
+		</header>

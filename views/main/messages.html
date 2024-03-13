@@ -1,6 +1,8 @@
 <%- include('../partials/header.html') %>
 
-<section class="messages-page">
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js" integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4" crossorigin="anonymous"></script>
+
+<section id="message-page" class="messages-page" userid="<%= user._id %>">
 	<div class="container">
 		<div class="messages-sec">
 			<div class="row">
@@ -8,10 +10,12 @@
 					<div class="msgs-list">
 						<div class="msg-title">
 							<h3>Messages</h3>
+							<!--
 							<ul>
 								<li><a href="#" title=""><i class="fa fa-cog"></i></a></li>
 								<li><a href="#" title=""><i class="fa fa-ellipsis-v"></i></a></li>
 							</ul>
+							-->
 						</div><!--msg-title end-->
 						<div class="messages-list">
 							<ul>
@@ -20,14 +24,14 @@
 										<div class="usr-msg-details">
 											<div class="usr-ms-img">
 												<img src="<%= friend.Image %>" alt="">
-												<span class="msg-status"></span>
+												<span class="msg-status <%= (friend.isOnline) ? "online" : "offline" %>"></span>
 											</div>
 											<div class="usr-mg-info">
 												<h3><%= friend.Name %></h3>
-												<p>Last Message</p>
+												<p><%= friend.lastMessage %></p>
 											</div>
 											<span class="posted_time">1:55 PM</span>
-											<span class="msg-notifc">1</span>
+											<!--<span class="msg-notifc">1</span>-->	
 										</div>
 									</li>
 								<% }) %>
@@ -36,6 +40,15 @@
 					</div>
 				</div>
 				<div class="col-lg-8 col-md-12 pd-right-none pd-left-none">
+					<div class="block-container">
+						<div class="container h-100 d-flex flex-column justify-content-center align-items-center">
+							<img src="/public/img/icons/Chat_Service.png" class="img-fluid mb-4" alt="Descrição da imagem" style="max-width: 100%; max-height: 200px; margin-bottom: 20px;">
+							<div class="text-center">
+								<h1 class="display-4">Welcome to Chat Service</h1>
+								<p class="lead">Select someone to start chatting with from the list on the left.</p>
+							</div>
+						</div>
+					</div>					
 					<div class="main-conversation-box">
 						<div class="message-bar-head">
 							<div class="usr-msg-details">
@@ -43,24 +56,35 @@
 									<img src="/public/images/resources/m-img1.png" alt="">
 								</div>
 								<div class="usr-mg-info">
-									<h3 id="chat-username">John Doe</h3>
+									<h3 id="chat-username">Username</h3>
 									<p id="chat-user_status">Online</p>
 								</div>
 							</div>
 							<a href="#" title=""><i class="fa fa-ellipsis-v"></i></a>
 						</div>
-						<div class="messages-line"></div>
+						<div class="messages-line">
+							<div class="main-message-box ta-right">
+								<div class="message-dt">
+									<div class="message-inner-dt">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+									</div><!--message-inner-dt end-->
+									<span>Sat, Aug 23, 1:08 PM</span>
+								</div><!--message-dt end-->
+							</div>
+						</div>
 						<div class="message-send-area">
-							<form>
+							<form id="SendMsg-Forms">
 								<div class="mf-field">
 									<input type="text" name="message" placeholder="Type a message here">
-									<button type="submit">Send</button>
+									<button type="button" id="SendMSG">Send</button>
 								</div>
+								<!--
 								<ul>
-									<li><a href="#" title=""><i class="fa fa-smile-o"></i></a></li>
-									<li><a href="#" title=""><i class="fa fa-camera"></i></a></li>
-									<li><a href="#" title=""><i class="fa fa-paperclip"></i></a></li>
+									<li><i class="fa fa-smile-o"></i><emoji-picker class="light" style="position: absolute; transform: translateY(0.5em);"></emoji-picker></li>
+									<li><i class="fa fa-camera"></i></li>
+									<li><i class="fa-solid fa-image"></i></li>
 								</ul>
+								-->
 							</form>
 						</div>
 					</div>
@@ -70,6 +94,7 @@
 	</div>
 </section>
 
+<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 <script src="/public/js/messages.js"></script>
 
 <%- include('../partials/footer.html') %>
