@@ -1,8 +1,8 @@
 {
-    "_id" : ObjectId("65f10ac41bb68c17174a175b"),
+    "_id" : "65f10ac41bb68c17174a175b",
     "userid" : "65e61b2654fd8a4e616dba70",
     "title" : "Unexpected Error When Implementing PyTorch Model",
-    "body" : "<p>Hello, community,</p>\r\n<p>I've recently started working on a deep learning project using PyTorch and encountered an error that I can't seem to resolve. I'm trying to implement a convolutional neural network model, but whenever I attempt to train the model, I get the following error message:</p>\r\n<p>I've checked the dimensions of my input and the architecture of the network multiple times, but everything seems to be correct. Has anyone faced a similar issue or has any idea what might be causing this error?</p>\r\n<p>Here is a snippet of the code where I define the network:</p>\r\n<p>&nbsp;&nbsp;def __init__(self):<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;super(ConvNet, self).__init__()<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.layer1 = nn.Conv2d(1, 32, kernel_size=5, stride=1, padding=2)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.relu = nn.ReLU()<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.pool = nn.MaxPool2d(kernel_size=2, stride=2)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.layer2 = nn.Conv2d(32, 64, kernel_size=5, stride=1, padding=2)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.fc1 = nn.Linear(7 * 7 * 64, 1000)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.fc2 = nn.Linear(1000, 10)<br>\r\n&nbsp;&nbsp;def forward(self, x):<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.layer1(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.pool(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.layer2(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.pool(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = x.view(-1, 7 * 7 * 64)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.fc1(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.fc2(x)<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;return x</p>\r\n<p>Any help would be greatly appreciated. Thank you!</p>\r\n",
+    "body" : "<p>Hello, community,</p>\r\n<p>I've recently started working on a deep learning project using PyTorch and encountered an error that I can't seem to resolve. I'm trying to implement a convolutional neural network model, but whenever I attempt to train the model, I get the following error message:</p>\r\n<p>I've checked the dimensions of my input and the architecture of the network multiple times, but everything seems to be correct. Has anyone faced a similar issue or has any idea what might be causing this error?</p>\r\n<p>Here is a snippet of the code where I define the network:</p>\r\n<p>&nbsp;&nbsp;def __init__(self:<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;super(ConvNet, self.__init__(<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.layer1 = nn.Conv2d(1, 32, kernel_size=5, stride=1, padding=2<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.relu = nn.ReLU(<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.pool = nn.MaxPool2d(kernel_size=2, stride=2<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.layer2 = nn.Conv2d(32, 64, kernel_size=5, stride=1, padding=2<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.fc1 = nn.Linear(7 * 7 * 64, 1000<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;self.fc2 = nn.Linear(1000, 10<br>\r\n&nbsp;&nbsp;def forward(self, x:<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.layer1(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.pool(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.layer2(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.pool(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = x.view(-1, 7 * 7 * 64<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.fc1(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.relu(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;x = self.fc2(x<br>\r\n&nbsp;&nbsp;&nbsp;&nbsp;return x</p>\r\n<p>Any help would be greatly appreciated. Thank you!</p>\r\n",
     "tags" : [
         "PyTorch",
         " Deep Learning",
@@ -15,20 +15,20 @@
         {
             "username" : "Miguellb",
             "userImage" : "/uploads/profileimage-1709856303667.png",
-            "text" : "Hi,\n\nBased on the error message you're encountering, it seems like there's a mismatch between the dimensions of your neural network layers. The error RuntimeError: size mismatch, m1: [32 x 784], m2: [512 x 128] typically indicates that the output of one layer does not match the expected input size of the next layer.\n\nIn your case, the output from the pooling layer that feeds into the fully connected layer (fc1) might not have the correct dimensions. The error suggests that the linear layer expects a different size than what is being provided.\n\n",
-            "timestamp" : ISODate("2024-03-13T02:29:58.132+0000")
+            "text" : "Hi,\n\nBased on the error message you're encountering, it seems like there's a mismatch between the dimensions of your neural network layers. The error RuntimeError: size mismatch, m1: [32 x 784], m2: [512 x 128] typically indicates that the output of one layer does not match the expected input size of the next layer.\n\nIn your case, the output from the pooling layer that feeds into the fully connected layer (fc1 might not have the correct dimensions. The error suggests that the linear layer expects a different size than what is being provided.\n\n",
+            "timestamp" : "2024-03-13T02:29:58.132+0000"
         },
         {
             "username" : "Miguellb",
             "userImage" : "/uploads/profileimage-1709856303667.png",
             "text" : "Test",
-            "timestamp" : ISODate("2024-03-13T02:37:55.226+0000")
+            "timestamp" : "2024-03-13T02:37:55.226+0000"
         }
     ],
     "likes" : [
         "65e61b2654fd8a4e616dba70"
     ],
-    "views" : NumberInt(92),
-    "shares" : NumberInt(8),
-    "share" : NumberInt(2)
+    "views" : 92,
+    "shares" : 8,
+    "share" : 2
 }
