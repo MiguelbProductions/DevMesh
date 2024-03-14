@@ -1,0 +1,146 @@
+{
+    "_id" : ObjectId("65e61b2654fd8a4e616dba70"),
+    "Email" : "miguellbdefault@gmail.com",
+    "Name" : "Miguellb",
+    "Username" : "Miguellb",
+    "Location" : "Portimão, Portugal",
+    "WorkArea" : "Web Development",
+    "Followers" : [
+
+    ],
+    "Following" : [
+
+    ],
+    "Social" : {
+        "WebPage" : "https://miguellb.pt"
+    },
+    "Password" : "$2b$10$PzDSudLGXp0dODRxFe/uD.RKOYBq2tKyCy.0VPBRNo/dXCxRlnZDy",
+    "Image" : "/uploads/profileimage-1710332329286.png",
+    "ThumbImage" : "/uploads/profilethumbimage-1709856857058.png",
+    "Info" : {
+        "About" : "",
+        "Experience" : [
+            {
+                "role" : "Web Developer Full Stack",
+                "company" : "Octus",
+                "startYear" : "2023",
+                "endYear" : "2023",
+                "description" : ""
+            }
+        ],
+        "Education" : [
+            {
+                "degree" : "High School",
+                "school" : "AEMTG",
+                "startYear" : "2021",
+                "endYear" : "2024",
+                "description" : ""
+            }
+        ],
+        "Skills" : [
+            "JS"
+        ]
+    },
+    "Reviews" : [
+        {
+            "Username" : "Beca",
+            "Body" : "Awesome thanks Miguel!",
+            "Stars" : NumberInt(5),
+            "Comments" : [
+
+            ],
+            "createdAt" : ISODate("2024-03-07T01:55:59.963+0000")
+        }
+    ],
+    "Portfolio" : [
+        {
+            "projectLink" : "https://github.com/MiguelbProductions/My-Portfolio",
+            "projectImage" : "/uploads\\projectImage-1709744865375.png",
+            "createdAt" : ISODate("2024-03-06T17:07:45.382+0000")
+        },
+        {
+            "projectLink" : "https://github.com/MiguelbProductions/News-WebSite",
+            "projectImage" : "/uploads\\projectImage-1709744871819.png",
+            "createdAt" : ISODate("2024-03-06T17:07:51.825+0000")
+        }
+    ],
+    "isOnline" : false
+}
+{
+    "_id" : ObjectId("65e67ad74637bb6c95636e14"),
+    "Email" : "bequinha@gmail.com",
+    "Name" : "Beca",
+    "Username" : "Beca",
+    "Location" : "Portimão, Portugal",
+    "WorkArea" : "Web Development",
+    "Followers" : [
+
+    ],
+    "Following" : [
+
+    ],
+    "Social" : {
+
+    },
+    "Password" : "$2b$10$gkXSBPiVrUI1th.gsEczwuW2hLZSeoeNGyvWoUfJo6JRi5vN6b2Yq",
+    "Image" : "/public/img/profile/DefaultProfileIcon.png",
+    "ThumbImage" : "/public/img/profile/DefaultProfileThumbnail.png",
+    "Info" : {
+        "About" : "",
+        "Experience" : [
+
+        ],
+        "Education" : [
+
+        ],
+        "Skills" : [
+
+        ]
+    },
+    "Reviews" : [
+
+    ],
+    "Portfolio" : [
+
+    ],
+    "isOnline" : false
+}
+{
+    "_id" : ObjectId("65efadc76d19cc7a7bbe8f14"),
+    "Email" : "jao@gmail.com",
+    "Name" : "Jao",
+    "Username" : "Jao",
+    "Location" : "Portimão, Portugal",
+    "WorkArea" : "Web Development",
+    "Followers" : [
+
+    ],
+    "Following" : [
+
+    ],
+    "Social" : {
+
+    },
+    "Password" : "$2b$10$dMluBOSgVCLsVfXdbEDLDuTeHJB8Y6rcSR5KdwDJnHPeXeWNeR6a6",
+    "Image" : "/public/img/profile/DefaultProfileIcon.png",
+    "ThumbImage" : "/public/img/profile/DefaultProfileThumbnail.png",
+    "Info" : {
+        "About" : "",
+        "Experience" : [
+
+        ],
+        "Education" : [
+
+        ],
+        "Skills" : [
+
+        ]
+    },
+    "Reviews" : [
+
+    ],
+    "Portflio" : [
+
+    ],
+    "isOnline" : true
+}

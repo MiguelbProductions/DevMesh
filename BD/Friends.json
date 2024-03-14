@@ -1,0 +1,6 @@
+{
+    "_id" : ObjectId("65f0249c9285420e62088fc1"),
+    "requester" : ObjectId("65efadc76d19cc7a7bbe8f14"),
+    "recipient" : ObjectId("65e67ad74637bb6c95636e14"),
+    "status" : "accepted"
+}

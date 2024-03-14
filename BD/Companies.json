@@ -1,0 +1,15 @@
+{
+    "_id" : ObjectId("65e3b1745c9dd568f4856acf"),
+    "CompanyName" : "Tech Solutions Ltda",
+    "Description" : "Empresa especializada em soluções tecnológicas, incluindo desenvolvimento de software, consultoria em TI, e infraestrutura de redes.",
+    "WorkArea" : "Desenvolvimento de Software",
+    "Location" : "São Paulo",
+    "Contacts" : {
+        "Email" : "contato@techsolutions.com.br",
+        "Phone" : "(351) 927-326-387",
+        "Website" : "www.techsolutions.com.br"
+    },
+    "Followers" : [
+
+    ]
+}

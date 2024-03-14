@@ -1,0 +1,72 @@
+{
+    "_id" : ObjectId("65e483ba6ba89a3ce1519843"),
+    "title" : "Estou a fazer um teste para ver se isto funciona",
+    "content" : "Este post tem de ter no minimo 10 palavras no content",
+    "tags" : [
+        "Teste",
+        "Funciona?"
+    ],
+    "likes" : [
+
+    ],
+    "comments" : [
+
+    ],
+    "views" : NumberInt(0),
+    "author" : "adm",
+    "createdAt" : ISODate("2024-03-03T14:05:46.333+0000")
+}
+{
+    "_id" : ObjectId("65e4844909684be4f9615867"),
+    "title" : "Estou a fazer um teste para ver se isto funciona 22222",
+    "content" : "Este post tem de ter no minimo 10 palavras no content 22222\n\n",
+    "tags" : [
+        "Teste 2",
+        "Funciona 2?"
+    ],
+    "likes" : [
+
+    ],
+    "comments" : [
+
+    ],
+    "views" : NumberInt(0),
+    "author" : "adm",
+    "createdAt" : ISODate("2024-03-03T14:08:09.897+0000")
+}
+{
+    "_id" : ObjectId("65e525d80d2072520f83683f"),
+    "title" : "Estou a fazer um teste para ver se isto funciona - Miguellb",
+    "content" : "Este post tem de ter no minimo 10 palavras no content - Miguellb\n\n",
+    "tags" : [
+        "Teste Miguellb",
+        "Funciona Miguellb"
+    ],
+    "likes" : [
+
+    ],
+    "comments" : [
+
+    ],
+    "views" : NumberInt(0),
+    "author" : "Miguellb",
+    "createdAt" : ISODate("2024-03-04T01:37:28.699+0000")
+}
+{
+    "_id" : ObjectId("65e89e2184323bc557e248bd"),
+    "title" : "Test Test Test Test Test Test Test",
+    "content" : "Test Test Test Test Test Test Test Test Test Test Test",
+    "tags" : [
+        "Teste",
+        "Funciona"
+    ],
+    "likes" : [
+
+    ],
+    "comments" : [
+
+    ],
+    "views" : NumberInt(0),
+    "author" : "Miguellb",
+    "createdAt" : ISODate("2024-03-06T16:47:29.530+0000")
+}

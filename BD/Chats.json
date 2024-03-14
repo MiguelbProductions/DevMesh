@@ -1,0 +1,78 @@
+{
+    "_id" : ObjectId("65f021169285420e62088fbf"),
+    "participants" : [
+        ObjectId("65e61b2654fd8a4e616dba70"),
+        ObjectId("65e67ad74637bb6c95636e14")
+    ],
+    "messages" : [
+        {
+            "text" : "OIIIIIIIIII",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:33:24.030+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "oiiiiiiiiiiiiiiiiiiiiii",
+            "senderId" : "65e61b2654fd8a4e616dba70",
+            "timestamp" : ISODate("2024-03-12T09:33:28.920+0000"),
+            "userImage" : "/uploads/profileimage-1709856303667.png"
+        },
+        {
+            "text" : "CARA VC É CHATO CAI FORA",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:33:36.690+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "Vou me matar",
+            "senderId" : "65e61b2654fd8a4e616dba70",
+            "timestamp" : ISODate("2024-03-12T09:34:07.838+0000"),
+            "userImage" : "/uploads/profileimage-1709856303667.png"
+        },
+        {
+            "text" : "OI",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:37:03.917+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "OI",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:45:36.837+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("65f022119285420e62088fc0"),
+    "participants" : [
+        ObjectId("65e67ad74637bb6c95636e14"),
+        ObjectId("65efadc76d19cc7a7bbe8f14")
+    ],
+    "messages" : [
+        {
+            "text" : "OI ",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:36:55.498+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "E",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:37:26.951+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "hey",
+            "senderId" : "65efadc76d19cc7a7bbe8f14",
+            "timestamp" : ISODate("2024-03-12T09:45:29.889+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        },
+        {
+            "text" : "OI",
+            "senderId" : "65e67ad74637bb6c95636e14",
+            "timestamp" : ISODate("2024-03-12T09:45:49.380+0000"),
+            "userImage" : "/public/img/profile/DefaultProfileIcon.png"
+        }
+    ]
+}
