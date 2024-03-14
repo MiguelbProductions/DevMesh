@@ -1,5 +1,5 @@
 {
-    "_id" : ObjectId("65e3b1745c9dd568f4856acf"),
+    "_id" : "65e3b1745c9dd568f4856acf",
     "CompanyName" : "Tech Solutions Ltda",
     "Description" : "Empresa especializada em soluções tecnológicas, incluindo desenvolvimento de software, consultoria em TI, e infraestrutura de redes.",
     "WorkArea" : "Desenvolvimento de Software",
