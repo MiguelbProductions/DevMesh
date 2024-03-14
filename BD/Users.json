@@ -1,5 +1,5 @@
 {
-    "_id" : ObjectId("65e61b2654fd8a4e616dba70"),
+    "_id" :"65e61b2654fd8a4e616dba70",
     "Email" : "miguellbdefault@gmail.com",
     "Name" : "Miguellb",
     "Username" : "Miguellb",
@@ -45,29 +45,29 @@
         {
             "Username" : "Beca",
             "Body" : "Awesome thanks Miguel!",
-            "Stars" : NumberInt(5),
+            "Stars" : 5,
             "Comments" : [
 
             ],
-            "createdAt" : ISODate("2024-03-07T01:55:59.963+0000")
+            "createdAt" : "2024-03-07T01:55:59.963+0000"
         }
     ],
     "Portfolio" : [
         {
             "projectLink" : "https://github.com/MiguelbProductions/My-Portfolio",
             "projectImage" : "/uploads\\projectImage-1709744865375.png",
-            "createdAt" : ISODate("2024-03-06T17:07:45.382+0000")
+            "createdAt" : "2024-03-06T17:07:45.382+0000"
         },
         {
             "projectLink" : "https://github.com/MiguelbProductions/News-WebSite",
             "projectImage" : "/uploads\\projectImage-1709744871819.png",
-            "createdAt" : ISODate("2024-03-06T17:07:51.825+0000")
+            "createdAt" : "2024-03-06T17:07:51.825+0000"
         }
     ],
     "isOnline" : false
 }
 {
-    "_id" : ObjectId("65e67ad74637bb6c95636e14"),
+    "_id" :"65e67ad74637bb6c95636e14",
     "Email" : "bequinha@gmail.com",
     "Name" : "Beca",
     "Username" : "Beca",
@@ -106,7 +106,7 @@
     "isOnline" : false
 }
 {
-    "_id" : ObjectId("65efadc76d19cc7a7bbe8f14"),
+    "_id" :"65efadc76d19cc7a7bbe8f14"),
     "Email" : "jao@gmail.com",
     "Name" : "Jao",
     "Username" : "Jao",
