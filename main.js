@@ -96,7 +96,7 @@ async function updateUserStatus(userId, isOnline) {
 
 /* ============ WEB HOSTING ============ */
 
-const dbUrl = 'mongodb://localhost:27017'
+const dbUrl = 'mongodb://localhost:27017';
 const dbName = "DevMesh"
 
 app.engine("html", require("ejs").renderFile)
