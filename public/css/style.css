@@ -45,8 +45,8 @@
 ===================================================================================== */
 
 :root {
-    --primary: #1363C6;
-    --secondary: #15ACE1;
+    --primary: #f78b0e;
+    --secondary: #f3b058;
     --light: #F4F7FE;
     --dark: #14183E;
 }
@@ -1847,6 +1847,15 @@ main {
 	font-size: 14px;
 	font-weight: 600;
 	float: right;
+}
+.job-container {
+    position: relative;
+}
+
+.apply-now-btn.top-right {
+    position: absolute;
+    top: 1em;
+    right: 2em;
 }
 
 

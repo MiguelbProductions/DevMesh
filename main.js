@@ -168,6 +168,7 @@ app.get("/:page?", async function(req, res) {
             const forum = db.collection("Forum");
             const friendsCollection = db.collection("Friends");
             const chatsCollection = db.collection("Chats");
+            const jobsCollection = db.collection("Jobs");
 
             const userId = new ObjectId(req.session.userId);
 
@@ -219,6 +220,10 @@ app.get("/:page?", async function(req, res) {
                     }
 
                     res.render(`main/${page}.html`, { user: user, friends: friendUsers });
+                } else if (page == "jobs") {
+                    const allJobs = await jobsCollection.find({}).sort({createdAt: -1}).toArray();
+                    
+                    res.render(`main/${page}.html`, { user: user, jobs: allJobs });
                 } else if (page != "socket.io") {
                     res.render(`main/${page}.html`, { user: user });
                 }
@@ -1060,6 +1065,43 @@ app.post('/post-question', async (req, res) => {
     }
 });
 
+app.post('/post-job', async (req, res) => {
+    try {
+        const jobData = req.body;
+        const client = await MongoClient.connect(dbUrl);
+        const db = client.db(dbName);
+
+        const users = db.collection("Users");
+        const jobsCollection = db.collection("Jobs");
+
+        const userId = new ObjectId(req.session.userId);
+        const jobHunter = await users.findOne({ _id: userId });
+        console.log(jobHunter, userId, req.session.userId)
+        if (!jobHunter) {
+            res.status(404).json({ message: "Reviewer user not found." });
+            return
+        }
+
+        const newJob = {
+            jobHunterName: jobHunter.Username,
+            jobHunterImage: jobHunter.Image,
+            title: jobData.jobTitle,
+            location: jobData.jobLocation,
+            type: jobData.jobType,
+            payment: jobData.jobPayment,
+            description: jobData.jobDescription,
+            tags: jobData.jobTags,
+            createdAt: new Date()
+        };
+
+        await jobsCollection.insertOne(newJob);
+
+        res.status(200).json({ message: "Job posted successfully!" });
+    } catch (error) {
+        console.error("Failed to post job:", error);
+        res.status(500).json({ message: "Failed to post job." });
+    }
+});
 
 
 const PORT = 8001
